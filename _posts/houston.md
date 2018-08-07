@@ -6,6 +6,9 @@ categories: HBase
 tags:  Java 大数据 入门
 ---
 
+* content
+{:toc}
+
 ![Nick](../img/nick-icon.png)
 
 # HBase-发现新大陆
