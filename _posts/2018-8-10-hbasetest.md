@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "HBase-发现新大陆"
+title:  "HBase-优化初体验"
 categories: HBase
 date:   2018-08-8 22:14:54
 tags:  Java HBase
