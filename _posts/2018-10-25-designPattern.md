@@ -14,10 +14,10 @@ tags:  Java
 ## 创造者
 
 * 简单工厂
-![simpleFatory](https://nickyadance.github.io/img/简单工厂.jpg)
+![simpleFatory](https://nickyadance.github.io/img/简单工厂.png)
 
 * 工厂方法
-![simpleFatory](https://nickyadance.github.io/img/工厂方法.jpg)
+![simpleFatory](https://nickyadance.github.io/img/工厂方法.png)
 
 * 抽象工厂
-![simpleFatory](https://nickyadance.github.io/img/抽象工厂.jpg)
+![simpleFatory](https://nickyadance.github.io/img/抽象方法.png)
