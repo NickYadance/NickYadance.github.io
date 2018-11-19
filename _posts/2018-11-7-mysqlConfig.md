@@ -34,9 +34,9 @@ default-character-set=utf8
 ## 远程非root用户连接
 创建用户：玩具程序host通常设置为'%'，允许所有ip登录
     
-    CREATE USER 'username'@'host' IDENTIFIED BY 'password';
+    CREATE USER 'username'@'[host]' IDENTIFIED BY 'password';
     
 分配权限：个人习惯于分配单个数据库权限
 
-    GRANT ALL ON DB.* to 'username'@'host' identified by 'password';
+    GRANT ALL ON [DB].* to 'username'@'host' identified by 'password';
     
