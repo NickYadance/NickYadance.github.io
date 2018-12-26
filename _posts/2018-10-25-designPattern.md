@@ -15,13 +15,20 @@ tags:  Java
 
 * 简单工厂
 
+客户端提供入参，工厂类处理所有对象创建逻辑。
+
+
 ![simpleFatory](https://nickyadance.github.io/img/简单工厂.png)
 
 * 工厂方法
 
+利用多态，替代简单工厂中对客户端入参的依赖。
+
 ![simpleFatory](https://nickyadance.github.io/img/工厂方法.png)
 
 * 抽象工厂
+
+工厂方法的增强版，将同一个***产品系列***集中在同一个工厂里。例如，海尔电视、海尔电冰箱都属于海尔工厂等。
 
 ![simpleFatory](https://nickyadance.github.io/img/抽象方法.png)
 
