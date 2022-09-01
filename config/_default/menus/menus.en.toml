@@ -60,12 +60,12 @@
 
 [[main]]
   name = "Devops"
-  url = "/devops/"
+  url = "/docs/devops/"
   weight = 30
 
 [[main]]
   name = "Bigdata"
-  url = "/bigdata/"
+  url = "/docs/bigdata/"
   weight = 40
 
 [[main]]
@@ -75,12 +75,12 @@
 
 [[main]]
   name = "Project"
-  url = "/project/"
+  url = "/docs/project/"
   weight = 60
 
 [[main]]
   name = "Note"
-  url = "/note/"
+  url = "/docs/note/"
   weight = 70
 
 [[social]]
