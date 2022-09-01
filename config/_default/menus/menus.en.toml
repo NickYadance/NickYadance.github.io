@@ -54,16 +54,24 @@
 #  parent = "get-started"
 
 [[main]]
+  name = "Docs"
+  url = "/docs/"
+  identifier = "docs"
+  weight = 10
+
+[[docs]]
   name = "Web"
   url = "/docs/web/"
   weight = 20
+  identifier = "web"
+  parent = "docs"
 
-[[main]]
+[[docs]]
   name = "Devops"
   url = "/docs/devops/"
   weight = 30
 
-[[main]]
+[[docs]]
   name = "Bigdata"
   url = "/docs/bigdata/"
   weight = 40
@@ -73,12 +81,12 @@
   url = "/blog/"
   weight = 50
 
-[[main]]
+[[docs]]
   name = "Project"
   url = "/docs/project/"
   weight = 60
 
-[[main]]
+[[docs]]
   name = "Note"
   url = "/docs/note/"
   weight = 70
