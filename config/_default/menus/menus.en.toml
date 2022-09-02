@@ -54,8 +54,8 @@
 #  parent = "get-started"
 
 [[main]]
-  name = "Docs"
-  url = "/docs/"
+  name = "Garden"
+  url = "/docs/intro/dg"
   identifier = "docs"
   weight = 10
 

@@ -1,3 +1,4 @@
+#baseurl = "https://localhost:1313/"
 baseurl = "https://nickyadance.github.io/"
 canonifyURLs = false
 disableAliases = true
