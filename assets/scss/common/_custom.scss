@@ -1,11 +1,8 @@
 /** Custom styles */
-:root {
-  --gred-s: rgb(237, 33, 58);
-  --gred-e: rgb(147, 41, 30);
-}
+@import "variables";
 
 .gradient-font {
-  background: linear-gradient(to right, var(--gred-s), var(--gred-e));
+  background: linear-gradient(to right, $gradient-s, $gradient-e);
   -webkit-background-clip: text;
   color: transparent;
 }
@@ -24,7 +21,7 @@
 }
 
 .gradient-button-gred {
-  background-image: linear-gradient(to right, var(--gred-s), var(--gred-e));
+  background-image: linear-gradient(to right, $gradient-s, $gradient-e);
 }
 
 .markdown-img {

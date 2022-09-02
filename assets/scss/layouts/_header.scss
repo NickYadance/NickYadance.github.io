@@ -1,3 +1,5 @@
+@import "../common/variables";
+
 .banner .nav li {
   @extend .nav-item;
 }
@@ -140,7 +142,7 @@ button#doks-versions {
 
 .header-bar {
   border-top: 4px solid;
-  border-image-source: linear-gradient(90deg, $primary, #8ed6fb 50%, #d32e9d);
+  border-image-source: linear-gradient(90deg, $gradient-s, $gradient-e 60%, #dbf8c5);
   border-image-slice: 1;
 }
 
