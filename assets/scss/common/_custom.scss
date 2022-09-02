@@ -26,3 +26,8 @@
 .gradient-button-gred {
   background-image: linear-gradient(to right, var(--gred-s), var(--gred-e));
 }
+
+.markdown-img {
+  @extend .img-fluid;
+  @extend .blur-up;
+}
