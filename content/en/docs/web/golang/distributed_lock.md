@@ -14,7 +14,7 @@ weight: 999
 toc: true
 mermaid: true
 ---
-## Example
+Easy to use Etcd distributed lock, some design pattern are worth learning.
 ```golang
 func (child *Children) WantsToPlay(computer *Computer, timeToEat *sync.WaitGroup) error {
         defer timeToEat.Done()
