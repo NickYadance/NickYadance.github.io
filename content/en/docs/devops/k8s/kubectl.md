@@ -17,4 +17,8 @@ check cgroup memory
 ```shell
 ls -l /sys/fs/cgroup/memory | grep system.slice
 ```
+get po sort by age
+```shell
+kubectl get pod --sort-by=.metadata.creationTimestamp
+```
 

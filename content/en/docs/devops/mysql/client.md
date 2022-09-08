@@ -1,5 +1,5 @@
 ---
-title: "Client Commands"
+title: "Client"
 description: ""
 lead: ""
 date: 2022-09-08T17:39:35+08:00
