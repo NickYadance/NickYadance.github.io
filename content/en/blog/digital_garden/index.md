@@ -1,7 +1,7 @@
 ---
-title: "电子花园"
-description: "开在互联网里的小花园"
-excerpt: "开在互联网里的小花园"
+title: "Tour Guide"
+description: ""
+excerpt: "Welcome to Nicky Wu's private zone."
 date: 2022-09-04T14:09:00+08:00
 lastmod: 2022-09-04T14:09:00+08:00
 draft: false
@@ -14,5 +14,15 @@ pinned: false
 homepage: false
 ---
 
-运气好的话，也许几百年后的某一天，某人还能偶然造访这个小花园，看看花花草草并了解到几个世纪前的一些琐事。
-{{< alert icon="💡" text="注意不要踩踏草坪！"/>}}
+{{< alert icon="💡" text="Please <br /> Keep off the grass"/>}}
+
+## About The [Garden]({{< relref "docs/intro/dg" >}})
+* Code snippets
+* Flowcharts explaining things
+* Quick notes
+* Reference
+
+## About The Blog
+* Diary stuff
+* Mumbling 
+

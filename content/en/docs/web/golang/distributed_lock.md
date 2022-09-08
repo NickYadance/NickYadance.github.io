@@ -1,5 +1,5 @@
 ---
-title: "How To Distributed Lock"
+title: "Distributed Lock"
 description: ""
 lead: ""
 date: 2022-09-07T21:44:47+08:00
@@ -14,7 +14,7 @@ weight: 999
 toc: true
 mermaid: true
 ---
-## How To
+## Example
 ```golang
 func (child *Children) WantsToPlay(computer *Computer, timeToEat *sync.WaitGroup) error {
         defer timeToEat.Done()
