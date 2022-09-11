@@ -13,7 +13,7 @@ menu:
 weight: 999
 toc: true
 ---
-```shell
+```bash
 ## sum with awk
 awk '{sum += $2} END {print sum}'
 

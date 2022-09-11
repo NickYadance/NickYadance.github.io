@@ -15,7 +15,7 @@ toc: true
 mermaid: true
 ---
 Easy to use Etcd distributed lock, some design pattern are worth thinking.
-```go
+```go {linenos=table,hl_lines=[8,"15-17"],linenostart=199}
 func (child *Children) WantsToPlay(computer *Computer, timeToEat *sync.WaitGroup) error {
         defer timeToEat.Done()
 
