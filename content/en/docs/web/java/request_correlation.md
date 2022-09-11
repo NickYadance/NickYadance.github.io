@@ -14,9 +14,9 @@ weight: 999
 toc: true
 ---
 Correlate request before and after Spring processing.
-* Add request_id to context
-* Add request_id to MDC
-* Add request_id to response
+* Add `request_id` to request context
+* Add `request_id` to log4j MDC
+* Add `request_id` to response
 
 Before request
 ```java

@@ -13,7 +13,6 @@ menu:
 weight: 999
 toc: true
 ---
-Typical custom auth filter.
 ```java
 @Component
 @Slf4j

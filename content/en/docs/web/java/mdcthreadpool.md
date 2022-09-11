@@ -13,10 +13,10 @@ menu:
 weight: 999
 toc: true
 ---
-Use `MdcThreadPool` and `MdcWrapper` to pass log4j MDC context cross threads in threadpool, this can help with logging requests with one request id.
+Useful thread pool wrapper to pass MDC context across threads.
 
 
-```java
+```Java
 /**
  * JBoss, Home of Professional Open Source.
  * Copyright 2014-2022 Red Hat, Inc., and individual contributors

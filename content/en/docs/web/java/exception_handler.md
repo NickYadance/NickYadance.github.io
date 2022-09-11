@@ -13,7 +13,6 @@ menu:
 weight: 999
 toc: true
 ---
-A simple and useful global exception handler.
 ```java
 @RestControllerAdvice
 @Slf4j

@@ -29,3 +29,8 @@ kill processes
 ```mysql
 kill <mysql_thread_id>;
 ```
+get&set variables
+```mysql
+show variables like "max_connections";
+set global max_connections = 200;
+```

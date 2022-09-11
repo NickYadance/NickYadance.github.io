@@ -2,14 +2,14 @@
 title: "Kubectl"
 description: ""
 lead: ""
-date: 2022-09-08T18:00:43+08:00
-lastmod: 2022-09-08T18:00:43+08:00
+date: 2022-09-11T21:05:41+08:00
+lastmod: 2022-09-11T21:05:41+08:00
 draft: false
 images: []
 menu:
   docs:
     parent: ""
-    identifier: "kubectl-05d05291d8c09012e29c7f1dbef15f83"
+    identifier: "kubectl-018fdf5fe90e72c19dd1bc9282305051"
 weight: 999
 toc: true
 ---
@@ -21,4 +21,9 @@ get po sort by age
 ```shell
 kubectl get pod --sort-by=.metadata.creationTimestamp
 ```
+get po group by hostname
+```shell
+kubectl get po -o wide | awk '{print $7}' | sort | uniq -c
+```
+
 
