@@ -13,6 +13,8 @@ menu:
 weight: 999
 toc: true
 ---
+
+script
 ```bash
 ## sum with awk
 awk '{sum += $2} END {print sum}'
@@ -20,24 +22,13 @@ awk '{sum += $2} END {print sum}'
 ## ls sort by file size
 ls -lh . --sort=size
 
-## os
-cat /proc/version
-uname -a
-lsb_release -a
-
 ## git 
 git config --global https.proxy http://127.0.0.1:1086
 git config --global https.proxy https://127.0.0.1:1086
 git config --global http.proxy socks5://127.0.0.1:1086
 git config --global https.proxy socks5://127.0.0.1:1086
-
 git config --global --unset http.proxy
 git config --global --unset https.proxy
-
-## user
-useradd wuyi
-passwd wuyi
-usermod -aG sudo wuyi
 
 ## count lines
 wc -l 'find . -name "*.java*"'
@@ -45,16 +36,27 @@ wc -l 'find . -name "*.java*"'
 
 system 
 ```bash
-# IO
+## IO
 iostat -xdm 1    
 
-# CPU
+## CPU
 mpstat -P ALL
 lscpu | grep cpu
 cat /proc/cpuinfo | grep processor
 
-# memory
+## memory
 pmap <pid>
 cat /proc/<pid>/status
 
+## os
+cat /proc/version
+uname -a
+lsb_release -a
+
+## user
+useradd wuyi
+passwd wuyi
+usermod -aG sudo wuyi
+# add sudoers
+sudo visudo
 ```

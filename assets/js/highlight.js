@@ -10,6 +10,7 @@ import markdown from 'highlight.js/lib/languages/markdown';
 import python from 'highlight.js/lib/languages/python';
 import java from 'highlight.js/lib/languages/java'
 import go from 'highlight.js/lib/languages/go'
+import sql from 'highlight.js/lib/languages/sql'
 
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('json', json);
@@ -22,6 +23,7 @@ hljs.registerLanguage('md', markdown);
 hljs.registerLanguage('python', python);
 hljs.registerLanguage('java', java);
 hljs.registerLanguage('go', go);
+hljs.registerLanguage('mysql', sql);
 
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('pre code:not(.language-mermaid)').forEach((block) => {
