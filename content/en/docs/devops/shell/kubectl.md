@@ -25,5 +25,9 @@ get po group by hostname
 ```shell
 kubectl get po -o wide | awk '{print $7}' | sort | uniq -c
 ```
+port forward
+```shell
+kubectl port-forward svc/airflow-webserver 8080:8080 --namespace airflow
+```
 
 

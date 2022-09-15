@@ -20,15 +20,6 @@ awk '{sum += $2} END {print sum}'
 ## ls sort by file size
 ls -lh . --sort=size
 
-## cpu 
-mpstat -P ALL
-lscpu | grep cpu
-cat /proc/cpuinfo | grep processor
-
-## memory
-pmap <pid>
-cat /proc/<pid>/status
-
 ## os
 cat /proc/version
 uname -a
@@ -50,6 +41,20 @@ usermod -aG sudo wuyi
 
 ## count lines
 wc -l 'find . -name "*.java*"'
+```
 
+system 
+```bash
+# IO
+iostat -xdm 1    
+
+# CPU
+mpstat -P ALL
+lscpu | grep cpu
+cat /proc/cpuinfo | grep processor
+
+# memory
+pmap <pid>
+cat /proc/<pid>/status
 
 ```
