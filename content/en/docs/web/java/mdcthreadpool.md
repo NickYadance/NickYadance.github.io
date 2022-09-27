@@ -17,10 +17,6 @@ Useful thread pool wrapper to pass MDC context across threads.
 
 
 ```Java
-/**
- * @author <a href="mailto:matejonnet@gmail.com">Matej Lazar</a>
- * @see https://github.com/project-ncl/pnc/blob/master/common/src/main/java/org/jboss/pnc/common/concurrent/MDCThreadPoolExecutor.java
- */
 public class MDCThreadPoolExecutor implements ExecutorService {
 
     protected ExecutorService executorService;
