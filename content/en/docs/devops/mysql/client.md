@@ -21,9 +21,9 @@ show transactions
 ```mysql
 select trx_id, trx_state, trx_mysql_thread_id, trx_query from information_schema.innodb_trx;
 ```
-show processes
+show processeslist
 ```mysql
-show processlist;
+SHOW FULL PROCESSLIST;
 ```
 kill processes
 ```mysql
