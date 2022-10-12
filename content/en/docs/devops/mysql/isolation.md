@@ -1,5 +1,5 @@
 ---
-title: "ACID"
+title: "Isolation"
 description: ""
 lead: ""
 date: 2022-09-27T16:15:41+08:00
@@ -9,11 +9,11 @@ images: []
 menu:
   docs:
     parent: ""
-    identifier: "acid-3fe482921224f31913a33f84e11f943e"
+    identifier: "isolation-3fe482921224f31913a33f84e11f943e"
 weight: 999
 toc: true
 ---
-## Data
+{{< details "Setup" >}}
 ```mysql
 DROP TABLE IF EXISTS IsolationTests;
 CREATE TABLE IsolationTests
@@ -33,6 +33,8 @@ UNION ALL SELECT 1,2,3
 UNION ALL SELECT 1,2,3
 ;
 ```
+{{< /details >}}
+
 ## Read Uncommitted
 ```mysql
 -- T1                                              - T2
@@ -47,6 +49,7 @@ ROLLBACK;                                          COMMIT;
 > With READ COMMITTED isolation level, each consistent read within a transaction **sets and reads its own fresh snapshot.**
 
 > This is called multi-versioned concurrency control. It increases transaction concurrency by split read from write and reduce locked read.
+> By `split read from write`, we mean that read request in snapshot data will no more acquire lock contention with write request. It's the `optimistic read lock` in transaction.
 
 ```mysql
 -- T1                                             -- T2                                            
