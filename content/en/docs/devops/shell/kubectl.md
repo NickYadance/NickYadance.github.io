@@ -29,5 +29,7 @@ port forward
 ```shell
 kubectl port-forward svc/airflow-webserver 8080:8080 --namespace airflow
 ```
-
-
+upsert configmap
+```shell
+kubectl create configmap foo --from-file foo.properties -o yaml --dry-run | kubectl apply -f -
+```

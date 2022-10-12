@@ -354,3 +354,4 @@ Record lock, heap no 6 PHYSICAL RECORD: n_fields 6; compact format; info bits 0
 ```
 ## Reference
 [understand-the-basics-of-locks-and-deadlocks-in-mysql-part-i](https://lynn-kwong.medium.com/understand-the-basics-of-locks-and-deadlocks-in-mysql-part-i-92f229db0a)
+[mysql-deadlocks](https://github.com/aneasystone/mysql-deadlocks)
