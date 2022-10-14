@@ -34,3 +34,7 @@ get&set variables
 show variables like "max_connections";
 set global max_connections = 200;
 ```
+count select qps
+```mysql
+show global status like "Com_select";  do sleep(10); show global status like "Com_select";
+```
