@@ -4,4 +4,5 @@
 ls -l /sys/fs/cgroup/memory | grep system.slice get po sort by age
 kubectl get pod --sort-by=.metadata.creationTimestamp get po group by hostname
 kubectl get po -o wide | awk '{print $7}' | sort | uniq -c port forward
-kubectl port-forward svc/airflow-webserver 8080:8080 --namespace airflow</description></item></channel></rss>
+kubectl port-forward svc/airflow-webserver 8080:8080 --namespace airflow upsert configmap
+kubectl create configmap foo --from-file foo.properties -o yaml --dry-run | kubectl apply -f -</description></item></channel></rss>
