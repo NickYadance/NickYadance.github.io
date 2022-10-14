@@ -39,9 +39,8 @@ VALUES
 ;
 
 SET GLOBAL innodb_status_output_locks=1;
-SHOW ENGINE INNODB STATUS;
-
-select LOCK_TYPE, LOCK_MODE, LOCK_STATUS, LOCK_DATA from performance_schema.data_locks;
+SHOW ENGINE INNODB STATUS; 
+mysql> select LOCK_TYPE, LOCK_MODE, LOCK_STATUS, LOCK_DATA from performance_schema.data_locks;
 ```
 {{< /details >}}
 ## Lock mode
@@ -69,8 +68,7 @@ Record lock, heap no 3 PHYSICAL RECORD: n_fields 6; compact format; info bits 0
 2: len 7; hex 8100000108011d; asc        ;;
 3: len 3; hex 546f6d; asc Tom;;                 First column, value = Tom
 4: len 1; hex 8c; asc  ;;                       Second column, value = 12 = 8c0x
-5: len 4; hex 8000005a; asc    Z;;              Third column, value = 90 = 5a0x
-*/
+5: len 4; hex 8000005a; asc    Z;;              Third column, value = 90 = 5a0x     
 ```
 
 ## Row lock
@@ -80,16 +78,14 @@ Lock single record. Two locks generated:
 ```mysql
 start transaction;
 select * from student_scores where id = 20 for update;
-/*
 +----+------+-----+-------+
 | id | name | age | score |
 +----+------+-----+-------+
 | 20 | Tom  |  12 |    90 |
 +----+------+-----+-------+
 1 row in set (0.01 sec)
-*/
-select LOCK_TYPE, LOCK_MODE, LOCK_STATUS, LOCK_DATA from performance_schema.data_locks;
-/*
+
+mysql> select LOCK_TYPE, LOCK_MODE, LOCK_STATUS, LOCK_DATA from performance_schema.data_locks;
 +-----------+---------------+-------------+-----------+
 | LOCK_TYPE | LOCK_MODE     | LOCK_STATUS | LOCK_DATA |
 +-----------+---------------+-------------+-----------+
@@ -97,7 +93,6 @@ select LOCK_TYPE, LOCK_MODE, LOCK_STATUS, LOCK_DATA from performance_schema.data
 | RECORD    | X,REC_NOT_GAP | GRANTED     | 20        |
 +-----------+---------------+-------------+-----------+
 2 rows in set (0.01 sec)
-*/
 
 show engine innodb status;
 /*
@@ -126,7 +121,6 @@ Record lock, heap no 3 PHYSICAL RECORD: n_fields 6; compact format; info bits 0
  3: len 3; hex 546f6d; asc Tom;;                 First column, value = Tom
  4: len 1; hex 8c; asc  ;;                       Second column, value = 12 = 8c0x
  5: len 4; hex 8000005a; asc    Z;;              Third column, value = 90 = 5a0x
- */
 ```
 
 ## Gap lock
@@ -201,7 +195,6 @@ Record lock, heap no 3 PHYSICAL RECORD: n_fields 6; compact format; info bits 0
  3: len 3; hex 546f6d; asc Tom;;
  4: len 1; hex 8c; asc  ;;
  5: len 4; hex 8000005a; asc    Z;;
- */
 ```
 ## Next-key lock
 Differ from `gap lock` in whether owning locks for the gap itself.
@@ -273,7 +266,6 @@ Record lock, heap no 7 PHYSICAL RECORD: n_fields 6; compact format; info bits 0
  3: len 5; hex 4e69636b79; asc Nicky;;
  4: len 1; hex 85; asc  ;;
  5: len 4; hex 8000000a; asc     ;;
- */
 ```
 
 ## Secondary index
@@ -350,7 +342,6 @@ Record lock, heap no 6 PHYSICAL RECORD: n_fields 6; compact format; info bits 0
  3: len 4; hex 526f7365; asc Rose;;
  4: len 1; hex 8e; asc  ;;
  5: len 4; hex 80000055; asc    U;;
- */
 ```
 ## Reference
 [understand-the-basics-of-locks-and-deadlocks-in-mysql-part-i](https://lynn-kwong.medium.com/understand-the-basics-of-locks-and-deadlocks-in-mysql-part-i-92f229db0a)
