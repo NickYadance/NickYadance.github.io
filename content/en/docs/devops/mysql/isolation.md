@@ -45,11 +45,10 @@ DO sleep(10);                                      SELECT * FROM IsolationTests;
 ROLLBACK;                                          COMMIT; 
 ```
 ## Read Committed
-> If the transaction isolation level is REPEATABLE READ (the default level), all consistent reads within the same transaction read the snapshot established **by the first such read in that transaction.** You can get a fresher snapshot for your queries by committing the current transaction and after that issuing new queries. 
-> With READ COMMITTED isolation level, each consistent read within a transaction **sets and reads its own fresh snapshot.**
+If the transaction isolation level is REPEATABLE READ (the default level), all consistent reads within the same transaction read the snapshot established **by the first such read in that transaction.** You can get a fresher snapshot for your queries by committing the current transaction and after that issuing new queries. 
+With READ COMMITTED isolation level, each consistent read within a transaction **sets and reads its own fresh snapshot.**
 
-> This is called multi-versioned concurrency control. It increases transaction concurrency by split read from write and reduce locked read.
-> By `split read from write`, we mean that read request in snapshot data will no more acquire lock contention with write request. It's the `optimistic read lock` in transaction.
+This is called multi-versioned concurrency control. It increases transaction concurrency by split read from write and reduce locked read. By `split read from write`, we mean that read request in snapshot data will no more acquire lock contention with write request. It's the `optimistic read lock` in transaction.
 
 ```mysql
 -- T1                                             -- T2                                            

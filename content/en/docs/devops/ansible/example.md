@@ -13,7 +13,6 @@ menu:
 weight: 999
 toc: true
 ---
-Some useful examples, and explanations about Ansible.
 ```yaml
 ---
 - name: "k8s ops"

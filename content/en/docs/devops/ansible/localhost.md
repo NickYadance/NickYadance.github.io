@@ -13,7 +13,6 @@ menu:
 weight: 999
 toc: true
 ---
-A minimal localhost example in case I forgot Ansible.
 ```yaml
 ---
 - name: "Playing with Ansible"
