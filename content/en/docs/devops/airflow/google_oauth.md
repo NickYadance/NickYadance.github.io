@@ -13,7 +13,8 @@ menu:
 weight: 999
 toc: true
 ---
-1. Implement `AirflowSecurityManager`, and put it under any PYTHONPATH in Airflow.  
+
+Implement `AirflowSecurityManager`, and put it under any PYTHONPATH in Airflow.  
 
 ```python
 import logging
@@ -54,7 +55,7 @@ class GoogleAuthorizer(AirflowSecurityManager):
             }
 ```
 
-2. Update `$AIRFLOW_HOME/webserver_config.py`. Note that `FAB_SECURITY_MANAGER_CLASS` is the full package name of the SecurityManager in step1.
+Update `$AIRFLOW_HOME/webserver_config.py`. Note that `FAB_SECURITY_MANAGER_CLASS` is the full package name of the SecurityManager in step1.
 ```python
 import os
 
