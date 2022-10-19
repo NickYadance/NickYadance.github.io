@@ -34,11 +34,18 @@ $$ cos(\theta)=\frac {a^2+b^2-c^2}{2ab}, c=\sqrt {(x_1-x_2)^2+(y_1-y_2)^2} $$
 $$ cos(\theta)=\frac {x_1 * x_2+y_1 * y_2}{\sqrt {x_1^2+y_1^2}*\sqrt{x_2^2+y_2^2}} $$
 推广到多维坐标系
 $$ cos(\theta)=\frac {\sum{x_i * y_i}}{\sqrt{\sum{x_i^2}} * \sqrt{\sum{y_i^2}}} = \frac {\vec{a} * \vec{b}}{|\vec{a}| * |\vec{b}|}$$
-
 ## 物品相似度
 设 $\vec{r_i}$ 为物品i的评分向量(评分矩阵的纵轴)，物品相似度为评分向量的余弦相似度
 $$ w_{i,j}=\frac {\vec{r_i} * \vec{r_j}}{|\vec{r_i}| * |\vec{r_j}|} $$
-
+## 线性回归
+一元线性回归
+$$ y=\beta_0 + \beta_1 x $$
+设误差为 $\mu$
+$$ y=\beta_0 + \beta_1 x + \mu $$
+给定一组观测值 $xi,yi (i=1,2\cdots ,n)$ ，设残差(真实值和预测值之差)为 $e$ ，残差平方和为 $Q$ ，$Q$ 可以作为损失函数
+$$ e=y - \hat{y} $$
+$$ Q=\sum^n_1{e^2}=\sum^n_1{(y_i - \hat{y_i})^2}=\sum^n_1{(y_i-(\beta_0 + \beta_1 x))^2} $$
+最小二乘法求 $Q$ 最小时 $\beta_0, \beta_1$ 的值
 ## ICF (basic)
 设 $\vec{w_i}$ 为物品i的相似度向量(相似矩阵的横轴)，$\vec{r_u}$ 为用户的评分向量(评分矩阵的横轴)
 $$ score_{(u,i)}=\frac {\vec{w_i} * \vec{r_u}}{Sum_{\vec{w_i}}} $$
@@ -49,3 +56,5 @@ $$ score_{(u,i)}=\frac {\vec{w_i} * \vec{r_u}}{Sum_{\vec{w_i}}} $$
 [comprehensive-guide-on-item-based-recommendation-systems](https://towardsdatascience.com/comprehensive-guide-on-item-based-recommendation-systems-d67e40e2b75d)
 
 [矩阵的本质](https://www.zhihu.com/question/22047061)
+
+[线性回归](https://zhuanlan.zhihu.com/p/72513104)
