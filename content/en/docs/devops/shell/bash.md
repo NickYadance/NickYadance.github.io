@@ -65,3 +65,10 @@ usermod -aG sudo wuyi
 # add sudoers
 sudo visudo
 ```
+
+mysql
+```mysql
+CREATE USER 'repl'@'%' IDENTIFIED BY '123456';
+GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%';
+flush privileges;
+```
