@@ -29,12 +29,14 @@ $$ \begin{pmatrix} 3 & 7 \\\\ 2 & 4 \end{pmatrix} \\ * \begin{pmatrix} x \\\\ y 
 n×n的方块矩阵A的一个特征值和对应特征向量是满足以下方程的标量以及非零向量。其中v为特征向量，$\lambda$为特征值。
 $$ Av=\lambda v $$
 ## 余弦相似度
-设二维坐标系内有坐标点 $(x_1,y_1), (x_2,y_2)$
+设坐标点 $(x_1,y_1), (x_2,y_2)$
 $$ cos(\theta)=\frac {a^2+b^2-c^2}{2ab}, c=\sqrt {(x_1-x_2)^2+(y_1-y_2)^2} $$
 $$ cos(\theta)=\frac {x_1 * x_2+y_1 * y_2}{\sqrt {x_1^2+y_1^2}*\sqrt{x_2^2+y_2^2}} $$
-推广到多维坐标系
+推广到多个点
 $$ cos(\theta)=\frac {\sum{x_i * y_i}}{\sqrt{\sum{x_i^2}} * \sqrt{\sum{y_i^2}}} = \frac {\vec{a} * \vec{b}}{|\vec{a}| * |\vec{b}|}$$
 ## 物品相似度
+评分矩阵
+$$ \begin{pmatrix} 0 & i0 & i1 & i2 & i3 \\\\ u_0 & r_{00} & r_{01} & r_{02} & r_{03} \\\\ u_1 & r_{10} & r_{11} & r_{12} & r_{13} \\\\ u_2 & r_{20} & r_{21} & r_{22} & r_{2 3} \end{pmatrix} $$
 设 $\vec{r_i}$ 为物品i的评分向量(评分矩阵的纵轴)，物品相似度为评分向量的余弦相似度
 $$ w_{i,j}=\frac {\vec{r_i} * \vec{r_j}}{|\vec{r_i}| * |\vec{r_j}|} $$
 ## 线性回归

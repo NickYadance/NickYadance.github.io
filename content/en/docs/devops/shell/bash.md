@@ -22,6 +22,11 @@ awk '{sum += $2} END {print sum}'
 ## ls sort by file size
 ls -lh . --sort=size
 
+## cut first field
+command | cut -f 1 -d '='
+## cut seconds until last fields
+command | cut -f 2- -d '='
+
 ## git 
 git config --global https.proxy http://127.0.0.1:1086
 git config --global https.proxy https://127.0.0.1:1086
@@ -59,4 +64,11 @@ passwd wuyi
 usermod -aG sudo wuyi
 # add sudoers
 sudo visudo
+```
+
+mysql
+```mysql
+CREATE USER 'repl'@'%' IDENTIFIED BY '123456';
+GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%';
+flush privileges;
 ```

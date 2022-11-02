@@ -13,6 +13,12 @@ menu:
 weight: 999
 toc: true
 ---
+create user
+```mysql
+CREATE USER 'repl'@'%' IDENTIFIED BY '123456';
+GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%';
+flush privileges;
+```
 find out the latest deadlocks
 ```mysql
 show engine innodb status;
