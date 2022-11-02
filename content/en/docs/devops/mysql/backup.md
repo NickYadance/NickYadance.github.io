@@ -25,8 +25,8 @@ toc: true
 `Binlog` Binary format logs containing data updates. **Non-Idempotent**(different from MongoDB).
 
 ## Slave Backup
-Slave server can be used as an efficient and safe way of replicating (not backup) data, but with minimal latency. With slave server, 
-we can back up data directly from slave server, which is safer.
+Slave server can be used as an efficient and safe way of replicating (not backup) data, but with minimal latency. 
+Also, we can back up data in slave server, instead of master server.
 
 A minimal master-slave example(mysql 8.0):
 
@@ -57,18 +57,18 @@ CHANGE MASTER TO
 show slave status;
 ```
 ## Mysqldump & Binlog
-mysqldump will generate binlog info into dump file. This can be helpful when restoring data with dump & binlog combined.
+mysqldump will dump data with binlog info, which can be helpful when restoring data with combined dump&binlog.
 ```shell
 mysqldump --all-databases --source-data=2 --single-transaction > master-dump.sql
 ```
 ```mysql
 CHANGE MASTER TO MASTER_LOG_FILE='binlog.000021', MASTER_LOG_POS=157;
 ```
-mysqlbinlog can read directly from remote server, in this case, it behaves just like a non-serving slave server.
+mysqlbinlog can read directly from remote server and behaves like a non-serving slave server.
 ```shell
 mysqlbinlog --read-from-remote-server -u root -p --raw --stop-never binlog.000016
 ```
-To restore data from dump&binlog, the binlog pos info is need.
+Use dump file and binlog to restore data.
 ```shell
 mysql -u root -p < master-dump.sql
 mysqlbinlog -D -u root -p --start-position <MASTER_LOG_POS> [list of binlogs since MASTER_LOG_FILE]
