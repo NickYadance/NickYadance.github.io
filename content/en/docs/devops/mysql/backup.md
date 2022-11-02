@@ -57,12 +57,13 @@ CHANGE MASTER TO
 show slave status;
 ```
 ## Mysqldump & Binlog
-mysqldump will dump data with binlog info, which can be helpful when restoring data with combined dump&binlog.
+**DON'T use mysqldump to busy databases** cuz the table locking can potentially hang all your requests for a long time.
+
+mysqldump will dump data with binlog info, which is helpful when restoring data with combined dump&binlog.
 ```shell
 mysqldump --all-databases --source-data=2 --single-transaction > master-dump.sql
-```
-```mysql
-CHANGE MASTER TO MASTER_LOG_FILE='binlog.000021', MASTER_LOG_POS=157;
+## binlog info in master-dump.sql:
+## CHANGE MASTER TO MASTER_LOG_FILE='binlog.000021', MASTER_LOG_POS=157;
 ```
 mysqlbinlog can read directly from remote server and behaves like a non-serving slave server.
 ```shell
@@ -72,6 +73,30 @@ Use dump file and binlog to restore data.
 ```shell
 mysql -u root -p < master-dump.sql
 mysqlbinlog -D -u root -p --start-position <MASTER_LOG_POS> [list of binlogs since MASTER_LOG_FILE]
+```
+## Percona Xtrabackup (Recommended)
+Before using Percona, make sure that the Percona version is compatible with mysql server.
+
+Typical backup scenarios with [Percona Xtrabackup](https://docs.percona.com/percona-xtrabackup/8.0/backup_scenarios/full_backup.html)
+```shell
+## Backup
+xtrabackup --backup \
+--target-dir=<directory to backup> \
+--socket=<socket path, use `show variables like '%socket%'` to find out> \
+-h <host> \
+-u <user> \
+-p
+
+## Prepare
+xtrabackup --prepare \
+--target-dir=<directory to backup> 
+
+## Transfer target dir to another machine maybe.
+
+## Restore
+xtrabackup --copy-back \
+--target-dir=<directory to backup> \
+--datadir=<data directory for new server>
 ```
 ## Reference
 [MySQL数据库-binlog日志备份与增量恢复](https://devopssec.gitee.io/blog/2018/08/28/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93-binlog%E6%97%A5%E5%BF%97%E5%A4%87%E4%BB%BD%E4%B8%8E%E5%A2%9E%E9%87%8F%E6%81%A2%E5%A4%8D/)
