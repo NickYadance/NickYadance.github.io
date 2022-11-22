@@ -13,27 +13,19 @@ menu:
 weight: 999
 toc: true
 ---
+quick diagnose methods
+```mysql
+show processlist ;
+select * from INFORMATION_SCHEMA.PROCESSLIST where id = ''\G
+kill mysql_thread_id;
+show engine innodb status;
+select trx_id, trx_state, trx_mysql_thread_id, trx_query from information_schema.innodb_trx;
+```
 create user
 ```mysql
 CREATE USER 'repl'@'%' IDENTIFIED BY '123456';
 GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%';
 flush privileges;
-```
-find out the latest deadlocks
-```mysql
-show engine innodb status;
-```
-show transactions
-```mysql
-select trx_id, trx_state, trx_mysql_thread_id, trx_query from information_schema.innodb_trx;
-```
-show processeslist
-```mysql
-SHOW FULL PROCESSLIST;
-```
-kill processes
-```mysql
-kill <mysql_thread_id>;
 ```
 get&set variables
 ```mysql
