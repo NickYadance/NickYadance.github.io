@@ -27,7 +27,7 @@ command | cut -f 1 -d '='
 ## cut seconds until last fields
 command | cut -f 2- -d '='
 
-## git 
+## git
 git config --global https.proxy http://127.0.0.1:1086
 git config --global https.proxy https://127.0.0.1:1086
 git config --global http.proxy socks5://127.0.0.1:1086
@@ -37,12 +37,16 @@ git config --global --unset https.proxy
 
 ## count lines
 wc -l 'find . -name "*.java*"'
+
+## find largest files
+find -type f -exec du -Sh {} + | sort -rh | head -n 20
+
 ```
 
-system 
+system
 ```bash
 ## IO
-iostat -xdm 1    
+iostat -xdm 1
 
 ## CPU
 mpstat -P ALL
