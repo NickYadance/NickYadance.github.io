@@ -21,22 +21,22 @@ Let's learn about how to prove the algorithm right with `Loop Variant`, which co
 * $ End(E):\ $ When loop ends, the variant proves the algorithm right
 
 Take insertion sort for example:
-* $ V:\ A[0,j)\ is\ sorted,\ j \in [0,A.length)$
-* $ S:\ A[0,j)\ is\ sorted,\ j=1$
-* $ L:\ A[0,j+1)\ is\ sorted,\ j \rightarrow j+1$
-* $ E:\ A[0,n)\ is\ sorted,\ j=n$
+* $ V:\ A[0,i)\ is\ sorted,\ i \in [0,A.length)$
+* $ S:\ A[0,i)\ is\ sorted,\ i=1$
+* $ L:\ A[0,i)\ is\ sorted,\ i-1 \rightarrow i$
+* $ E:\ A[0,n)\ is\ sorted,\ i=n$
 
 Pseudocode
 ```
 InsertionSort(A):
-  for j=1 to A.length:
-    i=j-1
-    while A[i]>A[j] and i >= 0:
-      A[i+1]=A[i]
-      i=i-1
-    A[i+1]=A[j]
+  for i=1 to A.length:
+    j=i-1
+    while A[j]>A[i] and j >= 0:
+      A[j+1]=A[j]
+      j=j-1
+    A[j+1]=A[i]
 ```
-# Algorithm Analyze
+# Analyze
 ![anayze](images/insertion_sort_analyze.png)
 For the best condition when A is ascending sorted :
 $$t_j=1,\ T(n)=an+b$$
