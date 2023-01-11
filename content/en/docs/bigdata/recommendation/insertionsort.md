@@ -13,11 +13,12 @@ menu:
 weight: 999
 toc: true
 ---
+# Loop Variant
 Let's learn about how to prove the algorithm right with `Loop Variant`, which contains 4 parts:
-* $ Variant(V): $ The variant formula
-* $ Start(S): $ The variant is true on start
-* $ L(Loop): $ The variant is true before each loop
-* $ E(End): $ When loop ends, the variant proves the algorithm right
+* $ Variant(V):\ $ The variant formula
+* $ Start(S):\ $ The variant is true on start
+* $ Loop(L):\ $ The variant is true before each loop
+* $ End(E):\ $ When loop ends, the variant proves the algorithm right
 
 Take insertion sort for example:
 * $ V:\ A[0,j)\ is\ sorted,\ j \in [0,A.length)$
@@ -35,3 +36,9 @@ InsertionSort(A):
       i=i-1
     A[i+1]=A[j]
 ```
+# Algorithm Analyze
+![anayze](images/insertion_sort_analyze.png)
+For the best condition when A is ascending sorted :
+$$t_j=1,\ T(n)=an+b$$
+For the worst condition when A is descending sorted :
+$$t_j=j,\ T(n)=an^2+bn+c$$
