@@ -28,7 +28,7 @@ if l < r:
   Merge(A,l,m,r)
 ```
 ## Analyze
-For merge sort, when $n=2^n$:
+For merge sort, when $n=2^n$
 $$
 T(n)=
 \begin{cases}
@@ -36,4 +36,4 @@ T(n)=
 2T(n/2)+cn &n>1 \\\\
 \end{cases}
 $$
-The `recursive tree` of the merge sort complexity: ![recursive tree](images/recursive_tree.png)
+The `recursive tree` of the merge sort complexity ![recursive tree](images/recursive_tree.png)

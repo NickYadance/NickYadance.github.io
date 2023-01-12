@@ -38,7 +38,7 @@ InsertionSort(A):
 ```
 ## Analyze
 ![anayze](images/insertion_sort_analyze.png)
-For the best condition when A is ascending sorted :
+For the best condition when A is ascending sorted
 $$t_j=1,\ T(n)=an+b$$
-For the worst condition when A is descending sorted :
+For the worst condition when A is descending sorted
 $$t_j=j,\ T(n)=an^2+bn+c$$
