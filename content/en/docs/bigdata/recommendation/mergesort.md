@@ -13,12 +13,12 @@ menu:
 weight: 999
 toc: true
 ---
-# Divide And Conquer
+## Divide And Conquer
 1. Divide: divide the original problem to several smaller sub problems
 2. Resolve: resolve sub problems if they are small enough, or else goto step1
 3. Conquer: merge the result of sub problems
 
-# Merge Sort
+## Merge Sort
 ```
 MergeSort(A,l,r):
 if l < r:
@@ -27,7 +27,7 @@ if l < r:
   MergeSort(A,m,r)
   Merge(A,l,m,r)
 ```
-# Analyze
+## Analyze
 For merge sort, when $n=2^n$:
 $$
 T(n)=

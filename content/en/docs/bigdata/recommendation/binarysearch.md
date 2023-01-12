@@ -13,7 +13,7 @@ menu:
 weight: 999
 toc: true
 ---
-# lower_bound
+## lower_bound
 lower_bound of $x$ in non-descending $array[l, r)$ is the leftmost index to insert $x$ while keeping order.
 
 To find the lower_bound with binary-search, keep loop invariant as below during iterations.
@@ -45,7 +45,7 @@ class BinarySearch {
   }
 }
 ```
-# upper_bound
+## upper_bound
 upper_bound of $x$ in non-descending $array[l, r)$ is the rightmost index to insert $x$ while keeping order.
 $$
 loop\ invariant

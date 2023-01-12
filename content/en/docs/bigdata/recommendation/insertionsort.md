@@ -13,7 +13,7 @@ menu:
 weight: 999
 toc: true
 ---
-# Loop Variant
+## Loop Variant
 Let's learn about how to prove the algorithm right with `Loop Variant`, which contains 4 parts:
 * $ Variant(V):\ $ The variant formula
 * $ Start(S):\ $ The variant is true on start
@@ -22,9 +22,9 @@ Let's learn about how to prove the algorithm right with `Loop Variant`, which co
 
 Take insertion sort for example:
 * $ V:\ A[0,i)\ is\ sorted,\ i \in [0,A.length)$
-* $ S:\ A[0,i)\ is\ sorted,\ i=1$
-* $ L:\ A[0,i)\ is\ sorted,\ i-1 \rightarrow i$
-* $ E:\ A[0,n)\ is\ sorted,\ i=n$
+* $ S:\ A[0,i)\ is\ sorted\ when\ i=1$
+* $ L:\ A[0,i+1)\ is\ sorted\ when\ i \rightarrow i+1$
+* $ E:\ A[0,n)\ is\ sorted\ when\ i=n$
 
 Pseudocode
 ```
@@ -36,7 +36,7 @@ InsertionSort(A):
       j=j-1
     A[j+1]=A[i]
 ```
-# Analyze
+## Analyze
 ![anayze](images/insertion_sort_analyze.png)
 For the best condition when A is ascending sorted :
 $$t_j=1,\ T(n)=an+b$$
