@@ -36,7 +36,7 @@ InsertionSort(A):
       j=j-1
     A[j+1]=A[i]
 ```
-## Analyze
+## Analysis
 ![anayze](images/insertion_sort_analyze.png)
 For the best condition when A is ascending sorted
 $$t_j=1,\ T(n)=an+b$$

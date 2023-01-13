@@ -27,7 +27,7 @@ if l < r:
   MergeSort(A,m,r)
   Merge(A,l,m,r)
 ```
-## Analyze
+## Analysis
 For merge sort, when $n=2^n$
 $$
 T(n)=
