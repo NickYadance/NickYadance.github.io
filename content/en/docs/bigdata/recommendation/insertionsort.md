@@ -15,16 +15,24 @@ toc: true
 ---
 ## Loop Variant
 Let's learn about how to prove the algorithm right with `Loop Variant`, which contains 4 parts:
-* $ Variant(V):\ $ The variant formula
-* $ Start(S):\ $ The variant is true on start
-* $ Loop(L):\ $ The variant is true before each loop
-* $ End(E):\ $ When loop ends, the variant proves the algorithm right
+$$
+\begin{cases}
+Variant(V): &T(i) \\\\
+Start(S): &T(0) \\\\
+Loop(L): &T(i+1)=f(T(i)) \\\\
+End(E): &Answer=f(T(n)) \\\\
+\end{cases}
+$$
 
-Take insertion sort for example:
-* $ V:\ A[0,i)\ is\ sorted,\ i \in [0,A.length)$
-* $ S:\ A[0,i)\ is\ sorted\ when\ i=1$
-* $ L:\ A[0,i+1)\ is\ sorted\ when\ i \rightarrow i+1$
-* $ E:\ A[0,n)\ is\ sorted\ when\ i=n$
+For insertion sort
+$$
+\begin{cases}
+V: &T(i)=sorted(A[0,i]) \\\\
+S: &T(0)=sorted(A[0,0]) \\\\
+L: &T(i+1)=orderd\\_insertion(T(i), A[i+1]) \\\\
+E:  &Answer=T(n)=sorted(A[0,n]) \\\\
+\end{cases}
+$$
 
 Pseudocode
 ```

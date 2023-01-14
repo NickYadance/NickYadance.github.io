@@ -27,7 +27,6 @@ As in [mergesort]({{< relref "docs/bigdata/recommendation/mergesort.md" >}}), we
 * _Resolve_ : when the array holds only 1 element, return it
 * _Conquer_ : the result is either the left result, or right result, or crossing dividing element
 
-## Analysis
 As with `recursive tree` in [mergesort]({{< relref "docs/bigdata/recommendation/mergesort.md" >}}), we can get the result of $T(n)=O(n\log(n))$
 $$
 T(n)=
@@ -37,8 +36,7 @@ T(n)=
 \end{cases}
 $$
 
-## Code
-{{< details "Subarray" >}}
+{{< details "Divide and Conquer" >}}
 ```java
 public static class Subarray {
   int l;
@@ -73,10 +71,7 @@ public static class Subarray {
     return Objects.hash(l, r, value);
   }
 }
-```
-{{< /details >}}
 
-```java
 class Code {
   public static Subarray cross(int[] A, int l, int mid, int r) {
     var res = new Subarray(mid, mid + 1, A[mid]);
@@ -111,3 +106,41 @@ class Code {
   }
 }
 ```
+{{< /details >}}
+
+## Kadane algorithm
+The [Kadane algorithm](https://en.wikipedia.org/wiki/Maximum_subarray_problem) is the linear complexity solution based on the following
+loop variant
+$$
+\begin{cases}
+V: &T(i)=max(\sum^{i}_{k=j}{A[k]}), j \in [0,i] \\\\
+S: &T(i)=A[0] \\\\
+L: &T(i+1)=T(i)>0\ ?\ T(i)+A[i+1]:A[i+1] \\\\
+E: &Answer=max(T(i),i \in 1...n) \\\\
+\end{cases}
+$$
+{{< details "Kadane" >}}
+```java
+class Subarray {
+  public static Subarray max_subarray_linear(int[] A, int l, int r) {
+    int max = Integer.MIN_VALUE, sum = 0;
+    int left = l, right = l;
+    for (int i = l, currentLeft = left; i < r; i++) {
+      if (sum > 0) {
+        sum += A[i];
+      } else {
+        sum = A[i];
+        currentLeft = i;
+      }
+
+      if (sum > max) {
+        max = sum;
+        left = currentLeft;
+        right = i + 1;
+      }
+    }
+    return new Subarray(left, right, max);
+  }
+}
+```
+{{< /details >}}
