@@ -22,12 +22,12 @@ $$[2\ 4\ -2\ 3\ -6\]$$
 The answer is 7 for both problems.
 
 ## Divide and Conquer
-As in [mergesort]({{< relref "docs/bigdata/recommendation/mergesort.md" >}}), we follow the 3 procedures of divide and conquer.
+As in [mergesort]({{< relref "docs/recommendation/mergesort.md" >}}), we follow the 3 procedures of divide and conquer.
 * _Divide_ : binary-divide the array
 * _Resolve_ : when the array holds only 1 element, return it
 * _Conquer_ : the result is either the left result, or right result, or crossing dividing element
 
-As with `recursive tree` in [mergesort]({{< relref "docs/bigdata/recommendation/mergesort.md" >}}), we can get the result of $T(n)=O(n\log(n))$
+As with `recursive tree` in [mergesort]({{< relref "docs/recommendation/mergesort.md" >}}), we can get the result of $T(n)=O(n\log(n))$
 $$
 T(n)=
 \begin{cases}
