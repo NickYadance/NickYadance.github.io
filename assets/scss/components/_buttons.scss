@@ -72,28 +72,28 @@ pre {
   font-size: $font-size-sm;
   padding: 0.25rem 0.5rem;
   color: $color-btn-text;
-  background-color: $color-btn-bg;
-  border-color: $color-btn-border;
+  //background-color: $color-btn-bg;
+  //border-color: $color-btn-text;
 }
 
 .btn-copy:hover {
   color: $color-btn-text;
-  background-color: lighten($color-btn-bg, 5%);
-  border-color: lighten($color-btn-border, 15%);
+  //background-color: lighten($color-btn-bg, 5%);
+  //border-color: lighten($color-btn-text, 15%);
 }
 
 .btn-copy:focus {
   color: $color-btn-text;
-  background-color: $color-btn-bg;
-  border-color: lighten($color-btn-border, 15%);
+  //background-color: $color-btn-bg;
+  //border-color: lighten($color-btn-text, 15%);
   box-shadow: none;
 }
 
 .btn-copy:active,
 .btn-copy.active {
   color: $color-btn-text;
-  background-color: $color-btn-bg;
-  border-color: lighten($color-btn-border, 15%);
+  //background-color: $color-btn-bg;
+  //border-color: lighten($color-btn-text, 15%);
 }
 
 .btn-copy:active:focus,
@@ -108,13 +108,13 @@ pre {
 }
 
 .btn-copy::after {
-  content: "Copy";
+  content: url("images/clipboard.svg");
   display: block;
   color: $color-btn-text;
 }
 
 .btn-copy:hover::after {
-  content: "Copy";
+  content: url("images/clipboard.svg");
   display: block;
   color: $color-btn-text;
 }
