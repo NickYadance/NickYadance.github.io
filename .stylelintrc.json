@@ -8,6 +8,8 @@
     "scss/at-extend-no-missing-placeholder": null,
     "scss/dollar-variable-colon-space-after": null,
     "scss/dollar-variable-empty-line-before": null,
+    "scss/double-slash-comment-whitespace-inside": null,
+    "scss/double-slash-comment-empty-line-before": null,
     "color-function-notation": null,
     "alpha-value-notation": null,
     "selector-id-pattern": null,
