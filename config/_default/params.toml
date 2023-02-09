@@ -103,12 +103,12 @@ lastMod = false
   kaTex = true
   multilingualMode = false
   docsVersioning = false
-  fullWidth = false
-  navbarSticky = true
+  fullWidth = true
+  navbarSticky = false
   toTopButton = false
   scrollSpy = false # experimental; needs Bootstrap >= 5.2.0-beta1
 
 [menu]
   [menu.section]
     auto = true
-    collapsibleSidebar = false
+    collapsibleSidebar = true

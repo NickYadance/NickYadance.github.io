@@ -1,5 +1,5 @@
 ---
-title: "Welcome to the Garden"
+title: "Welcome"
 description: "These are nice trees and flowers that you can copy."
 lead: "These are nice trees and flowers that you can copy."
 date: 2022-09-02T11:16:55+08:00
