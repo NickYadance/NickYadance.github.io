@@ -1,5 +1,5 @@
 ---
-title: "Insertionsort"
+title: "Insertion Sort"
 description: ""
 lead: ""
 date: 2023-01-11T14:39:50+08:00

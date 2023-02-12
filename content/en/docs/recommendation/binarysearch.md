@@ -1,5 +1,5 @@
 ---
-title: "Binarysearch"
+title: "Binary Search"
 description: ""
 lead: ""
 date: 2023-01-11T10:13:09+08:00
