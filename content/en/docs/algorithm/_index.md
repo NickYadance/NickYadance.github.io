@@ -1,5 +1,5 @@
 ---
-title: "Recommendation"
+title: "Algorithm"
 description: ""
 lead: ""
 date: 2022-10-17T17:20:44+08:00
@@ -9,7 +9,7 @@ images: []
 menu:
   docs:
     parent: ""
-    identifier: "recommendation-621bbc151577d7dcc57d98be0ae88575"
+    identifier: "algorithm-621bbc151577d7dcc57d98be0ae88575"
 weight: 999
 toc: true
 ---
