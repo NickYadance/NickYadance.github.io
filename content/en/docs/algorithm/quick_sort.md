@@ -1,5 +1,5 @@
 ---
-title: "Quick Sort"
+title: "Quicksort"
 description: ""
 lead: ""
 date: 2023-02-11T21:47:50+08:00

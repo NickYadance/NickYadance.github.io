@@ -1,5 +1,5 @@
 ---
-title: "Merge Sort"
+title: "Mergesort"
 description: ""
 lead: ""
 date: 2023-01-11T15:27:52+08:00

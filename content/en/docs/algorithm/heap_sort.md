@@ -1,5 +1,5 @@
 ---
-title: "Heap Sort"
+title: "Heapsort"
 description: ""
 lead: ""
 date: 2023-02-11T21:47:45+08:00
