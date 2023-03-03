@@ -41,10 +41,17 @@ wc -l 'find . -name "*.java*"'
 ## find largest files
 find -type f -exec du -Sh {} + | sort -rh | head -n 20
 
-```
+## jq
+TLS_CRT=$($kubectl_host get secret -n karmada-system karmada-webhook-cert --template='{{ index .data "tls.crt"}}' | tr -d '\n')
+TLS_KEY=$($kubectl_host get secret -n karmada-system karmada-webhook-cert --template='{{ index .data "tls.key"}}' | tr -d '\n')
+$kubectl_host get secret -n kruise-system kruise-webhook-certs -o json \
+        | jq --arg TLS_KEY "$TLS_KEY" '.data["tls.key"] |= $TLS_KEY' \
+        | jq --arg TLS_CRT "$TLS_CRT" '.data["tls.crt"] |= $TLS_CRT' \
+        | jq 'del(.metadata.annotations)' \
+        | jq 'del(.metadata.resourceVersion)' \
+        | jq 'del(.metadata.uid)' \
+        | kubectl apply -f -
 
-system
-```bash
 ## IO
 iostat -xdm 1
 
@@ -68,6 +75,7 @@ passwd wuyi
 usermod -aG sudo wuyi
 # add sudoers
 sudo visudo
+
 ```
 
 mysql
@@ -75,4 +83,33 @@ mysql
 CREATE USER 'repl'@'%' IDENTIFIED BY '123456';
 GRANT REPLICATION SLAVE ON *.* TO 'repl'@'%';
 flush privileges;
+
+show processlist ;
+select * from INFORMATION_SCHEMA.PROCESSLIST where id = ''\G
+kill mysql_thread_id;
+show engine innodb status;
+select trx_id, trx_state, trx_mysql_thread_id, trx_query from information_schema.innodb_trx;
+
+show variables like "max_connections";
+set global max_connections = 200;
+
+show global status like "Com_select";  do sleep(10); show global status like "Com_select";
+
+```
+
+kubectl
+```shell
+ls -l /sys/fs/cgroup/memory | grep system.slice
+
+# get po sort by age
+kubectl get pod --sort-by=.metadata.creationTimestamp
+
+# get po group by hostname
+kubectl get po -o wide | awk '{print $7}' | sort | uniq -c
+
+# port forward
+kubectl port-forward svc/airflow-webserver 8080:8080 --namespace airflow
+
+# upsert configmap
+kubectl create configmap foo --from-file foo.properties -o yaml --dry-run | kubectl apply -f -
 ```
