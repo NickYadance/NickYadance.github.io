@@ -13,7 +13,7 @@ menu:
 weight: 999
 toc: true
 ---
-## Complete walkthrough of DP: cutting problem
+### Complete walkthrough of DP: cutting problem
 The cutting problem is to get the max profit while cutting the stick of length n $P(n)$, into many parts with any length, each
 length of part have its own price $p(i)$.
 
