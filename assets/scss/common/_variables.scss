@@ -117,12 +117,12 @@ $font-family-base:            $font-family-sans-serif;
 $font-size-base:              1rem; // Assumes the browser default, typically `16px`
 $font-size-xl:                $font-size-base * 1.375;
 $font-size-lg:                $font-size-base * 1.25;
-$font-size-md:                $font-size-base * 1;
+$font-size-md:                $font-size-base * 1.15;
 $font-size-sm:                $font-size-base * 0.875;
 $paragraph-margin-bottom:     0.5rem;
-$h1-font-size:                2rem;
-$h2-font-size:                1.5rem;
-$h3-font-size:                1.25rem;
+$h1-font-size:                $font-size-base * 2;
+$h2-font-size:                $font-size-base * 1.5;
+$h3-font-size:                $font-size-base * 1.25;
 // $line-height-base:            1.5;
 
 $headings-font-family:        null;
