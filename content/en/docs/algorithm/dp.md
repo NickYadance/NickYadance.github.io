@@ -13,11 +13,11 @@ menu:
 weight: 999
 toc: true
 ---
-## Complete walkthrough of DP: cutting problem
+## Cutting problem
 The cutting problem is to get the max profit while cutting the stick of length n $P(n)$, into many parts with any length, each
 length of part have its own price $p(i)$.
 
-### DP and divide&conquer
+## DP and divide&conquer
 The divide&conquer divides the problem into subproblems and merge their results, all the subproblems never **repeat** nor **overlap**.
 
 The DP(dynamic programming) divides the problem into subproblems and some subproblems can **repeat** but not **overlap**.
@@ -29,7 +29,7 @@ The DP applies to the problems that are:
 2. Having the repeated subproblems.
 3. Having no overlap subproblems.
 
-### The explosive recursion
+## The explosive recursion
 {{< details "Cutting problem - recursion" >}}
 ```java
 public static int cuttingProblem_recursion(int length, int[] record) {
@@ -57,7 +57,7 @@ $T(n)$ is the number of times that `cuttingProblem_recursive` get called.
 $$ T(n) = 1 + \sum_{i=0}^{n-1}{T(i)}, \ T(0)=1 $$
 $$ T(n) = 2^n $$
 
-### The graphical representation of DP: the subproblems graph
+## The graphical representation of DP: the subproblems graph
 {{< details "Cutting problem - dp - up" >}}
 ```java
 public static int cuttingProblem_dp_up(int length, int[] record) {
@@ -105,7 +105,7 @@ The DP tries to **collapse** the recursive tree into `the subproblems graph` and
 ![img.png](images/dp_cutting_dp.png)
 
 
-### The optimal substructure prove: cut&paste
+## The optimal substructure prove: cut&paste
 It's not hard to figure out the substructure of the problem, the question is how to prove it being the optimal substructure.
 
 In DP, the `cut&paste` approach is often used to prove the optimal substructure. Take the cutting problem for example:
