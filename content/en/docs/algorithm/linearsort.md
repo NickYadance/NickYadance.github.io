@@ -26,7 +26,7 @@ The **decision tree** can be used to describe all effective sort algorithms base
 The `countingsort` is easy to understand but also easy to misunderstand. The countingsort, based on the fact
 that the input number is limited to $N$, counts all numbers and relay them back in sorted order.
 
-However, the key thing about countingsort is to keep the relative order in input, alias **stability**.So there is no sense writing countingsort as below
+However, the key thing about countingsort is to keep the relative order in input, alias **stability**. So there is no sense writing countingsort as below
 even if it works.
 ```text
 MeaninglessCountingsort(A):
