@@ -27,7 +27,6 @@ When repeatable subproblems happen, DP utilizes the `memorized table` to get the
 The DP applies to the problems that are:
 1. Having the optimal substructure.
 2. Having the repeated subproblems.
-3. Having no overlap subproblems.
 
 ## The explosive recursion
 {{< details "Cutting problem - recursion" >}}
