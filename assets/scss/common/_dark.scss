@@ -197,7 +197,7 @@ $navbar-dark-active-color:          $link-color-dark;
 [data-dark-mode] .btn-toggle::before {
   width: 1.25em;
   line-height: 0;
-  content: url("images/directory_white.svg");
+  content: "#";
   transition: transform 0.35s ease;
   transform-origin: 0.5em 50%;
   margin-bottom: 0.125rem;
@@ -205,7 +205,7 @@ $navbar-dark-active-color:          $link-color-dark;
 }
 
 [data-dark-mode] .btn-toggle[aria-expanded="true"]::before {
-  content: url("images/directory_white.svg");
+  //content: url("images/directory_white.svg");
 }
 
 [data-dark-mode] body .btn-toggle[aria-expanded="true"] {
