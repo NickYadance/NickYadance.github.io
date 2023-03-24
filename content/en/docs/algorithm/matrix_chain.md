@@ -50,3 +50,35 @@ with this method.
 Now let's try to resolve the matrix chain problem following the 3 steps above.
 
 ## DP: Step by step
+1. Define the answer as the best result.
+The answer is the matrix chain that has the lowest multiply price.
+
+2. Define how to get the best result from all the possible best results.
+$$
+row_{A_k}=p(k-1), \ column_{A_k}=p(k) \\\\
+\begin{aligned}
+MinPrice_{[i,j]}=Min(MinPrice_{[i,r]} + MinPrice_{[r+1,j]} + A_{p(i-1) \times p(r)} * A_{p(r) \times p(j)}) \\\\
+=Min(MinPrice_{[i,r]} + MinPrice_{[r+1,j]} + p(i-1) \times p(r) \times p(j)) \\\\
+\end{aligned}
+$$
+
+3. Utilize some containers to memorize the best result to avoid wasting time.
+Let m[i, j] be the min price of matrix chain from A_i to A_j.
+
+Persuade code
+```text
+MinPriceOfMatrixChain(p, n):
+    let m = array[n][n]
+    for i in 1 to n :
+        m[i][i] = 0
+    for i in n to 1 :
+        for j in i to n :
+            for r in i to j :
+                m[i][j]=Min(m[i][j], m[i][r] + m[r+1][j] + p(i-1)*p(r)*p(j))
+    return m[1][n]
+```
+
+Code
+```java
+
+```
