@@ -1,11 +1,10 @@
 import Head from 'next/head';
-import Image from 'next/image';
 import styles from './layout.module.css';
 import utilStyles from '../styles/utils.module.css';
 import Link from 'next/link';
 
-const name = 'Your Name';
-export const siteTitle = 'Next.js Sample Website';
+const name = 'WuYi\'s Blog';
+export const siteTitle = 'WuYi\'s Blog';
 
 export default function Layout({ children, home }) {
     return (
@@ -14,7 +13,7 @@ export default function Layout({ children, home }) {
                 <link rel="icon" href="/favicon.ico" />
                 <meta
                     name="description"
-                    content="Learn how to build a personal website using Next.js"
+                    content="The blog of a programmer who enjoys learning and building things."
                 />
                 <meta
                     property="og:image"
@@ -28,40 +27,40 @@ export default function Layout({ children, home }) {
             <header className={styles.header}>
                 {home ? (
                     <>
-                        <Image
-                            priority
-                            src="/images/profile.jpg"
-                            className={utilStyles.borderCircle}
-                            height={144}
-                            width={144}
-                            alt=""
-                        />
+                        {/*<Image*/}
+                        {/*    priority*/}
+                        {/*    src="/images/img.png"*/}
+                        {/*    className={utilStyles.borderCircle}*/}
+                        {/*    height={200}*/}
+                        {/*    width={675}*/}
+                        {/*    alt=""*/}
+                        {/*/>*/}
                         <h1 className={utilStyles.heading2Xl}>{name}</h1>
                     </>
                 ) : (
                     <>
-                        <Link href="/">
-                            <Image
-                                priority
-                                src="/images/profile.jpg"
-                                className={utilStyles.borderCircle}
-                                height={108}
-                                width={108}
-                                alt=""
-                            />
-                        </Link>
-                        <h2 className={utilStyles.headingLg}>
-                            <Link href="/" className={utilStyles.colorInherit}>
-                                {name}
-                            </Link>
-                        </h2>
+                        {/*<Link href="/">*/}
+                            {/*<Image*/}
+                            {/*    priority*/}
+                            {/*    src="/images/img.png"*/}
+                            {/*    className={utilStyles.borderCircle}*/}
+                            {/*    height={200}*/}
+                            {/*    width={675}*/}
+                            {/*    alt=""*/}
+                            {/*/>*/}
+                        {/*</Link>*/}
+                        {/*<h2 className={utilStyles.headingLg}>*/}
+                        {/*    <Link href="/" className={utilStyles.colorInherit}>*/}
+                        {/*        {name}*/}
+                        {/*    </Link>*/}
+                        {/*</h2>*/}
                     </>
                 )}
             </header>
             <main>{children}</main>
             {!home && (
                 <div className={styles.backToHome}>
-                    <Link href="/">← Back to home</Link>
+                    <Link href="/">← Back</Link>
                 </div>
             )}
         </div>
