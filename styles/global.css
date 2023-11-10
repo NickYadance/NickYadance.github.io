@@ -1,3 +1,6 @@
+@import url('highlight.js/styles/default.min.css');
+@import url('katex/dist/katex.min.css');
+
 html,
 body {
   padding: 0;
@@ -24,4 +27,9 @@ a:hover {
 img {
   max-width: 100%;
   display: block;
+}
+
+/* highlight css */
+.hljs {
+  font-size: 14px;
 }
