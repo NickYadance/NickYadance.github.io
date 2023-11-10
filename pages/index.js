@@ -7,7 +7,7 @@ import Date from '../components/date'
 import Image from "next/image";
 import email from '../public/images/email.svg'
 import github from '../public/images/github.svg'
-import {Space, Tooltip} from "antd";
+import {Divider, Space, Tooltip} from "antd";
 
 export default function Home({allPostsData}) {
     return (
@@ -26,6 +26,7 @@ export default function Home({allPostsData}) {
                     </Tooltip>
                 </Space>
             </section>
+            <Divider></Divider>
             <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
                 <ul className={utilStyles.list}>
                     {allPostsData.map(({id, date, title}) => (
