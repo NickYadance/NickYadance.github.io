@@ -29,3 +29,43 @@ $$
 假设$P(n)=p(i)+P(n-i)$为最优解， 而$P(n-i)$不是最优解，那么会存在另外一个$P1(n-i)$，使得$P1(n)=p(i)+P1(n-i)
 $为最优解，与$P(n)$为最优解矛盾。
 
+```go
+func CuttingProblem(price []int, length int) int {
+	dp := make([]int, length+1)
+	for i := 1; i <= length; i++ {
+		for j := 1; j <= i; j++ {
+			dp[i] = max(dp[i], price[j]+dp[i-j])
+		}
+	}
+
+	return dp[length]
+}
+```
+
+另一个问题是**最优解的路径**的构造。由于**最优子结构**的性质，每个问题的最优解都是由当前问题的解和子问题最优解组成，因此我们
+可以**从后向前回溯子问题**，将所有解拼接起来得到最优解路径。
+```go
+func Path(price, cuttingPoint []int, length int) string {
+	if length > 0 {
+		return fmt.Sprintf("%s+%d[%d]", Path(price, cuttingPoint, length-cuttingPoint[length]), cuttingPoint[length], price[cuttingPoint[length]])
+	}
+	return ""
+}
+
+func CuttingProblem(price []int, length int) int {
+	dp := make([]int, length+1)
+	cuttingPoint := make([]int, length+1)
+	for i := 1; i <= length; i++ {
+		for j := 1; j <= i; j++ {
+			if price[j]+dp[i-j] > dp[i] {
+				dp[i] = price[j] + dp[i-j]
+				cuttingPoint[i] = j
+			}
+		}
+	}
+
+	fmt.Println(Path(price, cuttingPoint, length))
+
+	return dp[length]
+}
+```
