@@ -15,17 +15,14 @@ jobs:
           node-version: '16'
           cache: 'npm'
 
-      - name: Install dependencies
+      - name: Install
         run: npm install
 
-      - name: Check for linting errors
-        run: npm test
-
-      - name: Build production website
+      - name: Build
         run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./out

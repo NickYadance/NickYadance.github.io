@@ -29,6 +29,8 @@ $$
 假设$P(n)=p(i)+P(n-i)$为最优解， 而$P(n-i)$不是最优解，那么会存在另外一个$P1(n-i)$，使得$P1(n)=p(i)+P1(n-i)
 $为最优解，与$P(n)$为最优解矛盾。
 
+确定问题的递归式和最优子结构性质后，就可以自底向上递推得出最优解。
+
 ```go
 func CuttingProblem(price []int, length int) int {
 	dp := make([]int, length+1)
