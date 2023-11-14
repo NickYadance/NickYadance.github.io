@@ -9,6 +9,8 @@ export default function Post({postData}) {
         <Layout>
             <Head>
                 <title>{postData.title}</title>
+                {/*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css" />*/}
+                {/*<link rel="stylesheet" href="highlight.js/styles/default.min.css" />*/}
             </Head>
             <article>
                 <h1 className={utilStyles.headingXl}>{postData.title}</h1>
