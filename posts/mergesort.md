@@ -75,3 +75,4 @@ $$
 
 大部分分治算法都有类似结构的递归式，递归式生成的**递归树**如图。树的总高度为$1 + lgn$，每层的复杂度为$cn$，总代价为$(1+lgn)cn$，即$nO(lgn)$。
 ![递推树](/images/recursive_tree.png)
+> [算法导论](https://jingyuexing.github.io/Ebook/Algorithm/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA.pdf)

@@ -71,3 +71,4 @@ func CuttingProblem(price []int, length int) int {
 	return dp[length]
 }
 ```
+> [算法导论](https://jingyuexing.github.io/Ebook/Algorithm/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA.pdf)
