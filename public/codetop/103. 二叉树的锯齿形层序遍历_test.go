@@ -2,12 +2,6 @@ package codetop
 
 // TODO
 
-type TreeNode struct {
-	Val   int
-	Left  *TreeNode
-	Right *TreeNode
-}
-
 func appendIfNotNil(a []*TreeNode, node *TreeNode) []*TreeNode {
 	if node != nil {
 		return append(a, node)

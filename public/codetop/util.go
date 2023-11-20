@@ -7,3 +7,13 @@ func Max(a, b int) int {
 		return b
 	}
 }
+
+type TreeNode struct {
+	Val   int
+	Left  *TreeNode
+	Right *TreeNode
+}
+
+func CharAt(s string, i int) string {
+	return s[i : i+1]
+}
