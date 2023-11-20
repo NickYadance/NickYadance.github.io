@@ -1,5 +1,7 @@
 package codetop
 
+// TODO
+
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
@@ -22,7 +24,6 @@ func appendIfNotNil(a []*TreeNode, node *TreeNode) []*TreeNode {
  *     Right *TreeNode
  * }
  */
-// TODO
 func zigzagLevelOrder(root *TreeNode) [][]int {
 	var queue []*TreeNode
 	var stack []*TreeNode
