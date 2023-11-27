@@ -6,7 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "antd": "^5.11.3",
+    "antd": "^5.11.5",
     "date-fns": "^2.30.0",
     "gray-matter": "^4.0.3",
     "highlight.js": "^11.9.0",
