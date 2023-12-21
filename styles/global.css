@@ -53,3 +53,10 @@ blockquote:before {
 blockquote p {
   display: inline;
 }
+
+code {
+  background: #d6d6dd;
+  padding: 0 5px;
+  margin: 0 2px;
+  border-radius: 6px;
+}
