@@ -60,3 +60,10 @@ code {
   margin: 0 2px;
   border-radius: 6px;
 }
+
+figure {
+  font-size: 12px;
+  font-weight: normal;
+  color: #8c8c8c;
+  text-align: center;
+}
