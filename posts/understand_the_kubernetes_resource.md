@@ -11,7 +11,7 @@ request的值有两个作用
 1. 影响调度策略
 2. 影响cpu资源配比
 3. 影响oom打分值
-
+`
 > The scheduler ensures that, for each resource type, the sum of the resource requests of the scheduled containers is less than the capacity of the node. Note that although actual memory or CPU resource usage on nodes is very low, the scheduler still refuses to place a Pod on a node if the capacity check fails.
 
 request在调度策略中的作用可以总结为：节点上所有容器的request总和不能超过节点容量。这是一个保守的硬性条件，并不会考虑作决策时节点的容器真实资源使用率，这也是实际使用中优化k8s集群资源使用率的一个点，毕竟多数容器会设定一个大的预估值以应对峰值流量。
