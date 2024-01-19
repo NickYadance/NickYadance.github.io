@@ -64,7 +64,7 @@ EVAL "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEY
 2. 原子性
 3. 无锁
 
-在一番思考对比后，gpt4给出的解是最符合我要求的，同时兼容Mysql5.0/8.0。实际运用中，程序可以生成一个随机值作为`lock_name`，判断加锁语句返回的affectedRows来判定是否加锁成功。
+在一番搜索和对比后chatgpt4给出的解是最符合要求的，同时兼容Mysql5.0/8.0。实际运用中，程序可以生成一个随机值作为`lock_name`，判断加锁语句返回的affectedRows来判定是否加锁成功。
 ```mysql
 CREATE TABLE `distributed_lock` (
   `lock_name` VARCHAR(255) NOT NULL,
