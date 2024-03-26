@@ -13,7 +13,7 @@ description: '尽管二分查找的基本思想相对简单，但细节可以令
 3. $Loop$: 保持
 4. $End$: 终止
 
-首先我们定义二分查找的循环不变量为: 对于有序数组$a[l,r)$和目标值$n$，在**数组区间$[l, r)$内，区间左边的元素比$n$小，区间右边的元素比$n$大，即**
+首先我们定义二分查找的循环不变量为: 对于有序数组$a[l,r)$和目标值$n$，在**数组区间$[l, r)$内，区间左边的元素小于$n$，区间右边的元素大于等于$n$，即**
 $$ a[i]<n \ if \ i < l $$
 $$ a[i]>=n \ if \ i >= r $$
 算法开始时有$l=0,r=len(a)$，循环不变量成立。
@@ -33,7 +33,7 @@ func BinarySearchLowerBound(arr []int, n int) int {
 	high := len(arr)
 	for low < high {
 		mid := low + (high-low)>>1
-		if arr[mid] < n {
+		if n > arr[mid] {
 			low = mid + 1
 		} else {
 			high = mid
@@ -43,7 +43,7 @@ func BinarySearchLowerBound(arr []int, n int) int {
 }
 ```
 
-二分查找可以在二分搜索下界的基础上实现。
+二分查找可以在二分搜索下界的基础上实现，在迭代过程中提前判断$a[mid]=n$可以减少迭代次数，但丢失掉了下界算法的**稳定性**，因为下界只会有一个值。
 ```go
 func BinarySearch(arr []int, n int) int {
 	lowerBound := BinarySearchLowerBound(arr, n)
@@ -54,14 +54,49 @@ func BinarySearch(arr []int, n int) int {
 }
 ```
 
-也可以在迭代过程中提前对$a[mid]=n$做判断，减少迭代次数，但也丢失掉了算法的**稳定性**。
+与下界相对应的上界怎么求呢？数学定义里上下界对应的是一个数在排序数组的两端，例如下面例子里3的下界是a[2]，上界是a[4]。但是套用我们的下界算法并不能得到上界为4(你可以试试)，这时候可以做个处理，定义上界为**数学上界的右一位**，即例子里的a[5]。
+```
+a[i] 1 2 3(lower) 3 3(upper) 4(upper')
+i    0 1 2        3 4        5
+```
 
-最后总结一下二分查找的循环不变量四要素。
-1. $Variant$: 目标值下界所在的区间
-2. $Start$: $[0,len(a))$
-3. $Loop$: 如果$n>a[mid]$，则n的下界在mid右边且不包括mid，反之在左边
-4. $End$: $l=r$
+这种处理方式参考的是c++ std里[upper_bound](https://en.cppreference.com/w/cpp/algorithm/upper_bound)&[lower_bound](https://en.cppreference.com/w/cpp/algorithm/lower_bound)的定义，上下界分别是在数组中**插入目标值并保持有序的第一个和最后一个位置**。
+- lower_bound: Searches for the first element in the partitioned range [first, last) which is **not ordered before** value.
+- upper_bound: Searches for the first element in the partitioned range [first, last) which is **ordered after** value.
 
-> [二分查找有几种写法？它们的区别是什么？ - Jason Li的回答 - 知乎](https://www.zhihu.com/question/36132386/answer/530313852)
-> 
-> [算法导论](https://jingyuexing.github.io/Ebook/Algorithm/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA.pdf)
+循环不变量需要修改保持过程为
+1. 如果$n <= a[mid]$，n的上界在mid右边且不包括mid，区间$[mid + 1, r)$满足循环不变量
+2. 如果$n > a[mid]$，n的上界在mid左边且包括mid，区间$[l, mid)$满足循环不变量
+
+```go
+func BinarySearchUpperBound(arr []int, n int) int {
+	low := 0
+	high := len(arr)
+	for low < high {
+		mid := low + (high-low)>>1
+		if n <= arr[mid] {
+			low = mid + 1
+		} else {
+			high = mid
+		}
+	}
+	return low
+}
+```
+
+另外在以上的定义下，N的上界与N+1的下界位置相同，可以直接用下界换算。
+```go
+func BinarySearchUpperBound(arr []int, n int) int {
+	return BinarySearchLowerBound(arr, n + 1)
+}
+```
+
+总结一下二分查找的循环不变量四要素，对有序数组$a[l,r)$
+- $Variant$: 目标值下界所在的区间
+- $Start$: $l=0,r=len(a)$
+- $Loop$: 如果$n>a[mid]$，则n的下界在mid右边且不包括mid，反之在左边
+- $End$: $l=r$
+
+## Reference
+- [二分查找有几种写法？它们的区别是什么？ - Jason Li的回答 - 知乎](https://www.zhihu.com/question/36132386/answer/530313852)
+- [算法导论](https://jingyuexing.github.io/Ebook/Algorithm/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA.pdf)
