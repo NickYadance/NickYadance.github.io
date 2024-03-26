@@ -1,5 +1,5 @@
 ---
-title: '彻底理解快速排序的分治问题'
+title: '理解快速排序的分治问题'
 date: '2023-11-11'
 description: ''
 ---
@@ -11,7 +11,7 @@ QuickSort(A, l, r):
          QuickSort(A, l, p - 1)
          QuickSort(A, p + 1, r)
 ```
-至于为什么这样分治能对数组排序我们不作分析，只介绍Partition的实现。为了彻底理解Partition的过程并能写出BugFree的代码，
+至于为什么这样分治能对数组排序我们不作分析，只介绍Partition的实现。为了理解Partition的过程并能写出BugFree的代码，
 我们以[Lomuto](https://en.wikipedia.org/wiki/Quicksort)的实现为例，使用循环不变量描述算法过程。
 
 > 注意：此实现下的快速排序性能并不是最优的。
