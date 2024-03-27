@@ -1,0 +1,37 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><link rel="icon" href="/favicon.ico"/><meta name="description" content="The blog of a programmer who enjoys learning and building things."/><meta property="og:image" content="https://og-image.vercel.app/WuYi&#x27;s%20Blog.png?theme=light&amp;md=0&amp;fontSize=75px&amp;images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg"/><meta name="og:title" content="WuYi&#x27;s Blog"/><meta name="twitter:card" content="summary_large_image"/><title>理解k8s网络</title><meta name="next-head-count" content="8"/><link data-next-font="" rel="preconnect" href="/" crossorigin="anonymous"/><link rel="preload" href="/_next/static/css/f5bbdd045156ccce.css" as="style" crossorigin=""/><link rel="stylesheet" href="/_next/static/css/f5bbdd045156ccce.css" crossorigin="" data-n-g=""/><link rel="preload" href="/_next/static/css/327bdfcd3e98582f.css" as="style" crossorigin=""/><link rel="stylesheet" href="/_next/static/css/327bdfcd3e98582f.css" crossorigin="" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" crossorigin="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-445a5fe7cadeec28.js" defer="" crossorigin=""></script><script src="/_next/static/chunks/framework-bbecb7d54330d002.js" defer="" crossorigin=""></script><script src="/_next/static/chunks/main-6e8ee6ae7cc0a14c.js" defer="" crossorigin=""></script><script src="/_next/static/chunks/pages/_app-25345a12794bca3a.js" defer="" crossorigin=""></script><script src="/_next/static/chunks/996-5abd08ae305d436b.js" defer="" crossorigin=""></script><script src="/_next/static/chunks/284-919fb0c78b7b87bc.js" defer="" crossorigin=""></script><script src="/_next/static/chunks/pages/posts/%5Bid%5D-30a9d36a22da8e83.js" defer="" crossorigin=""></script><script src="/_next/static/tBDcWIf9tU2_6gXjzKBx-/_buildManifest.js" defer="" crossorigin=""></script><script src="/_next/static/tBDcWIf9tU2_6gXjzKBx-/_ssgManifest.js" defer="" crossorigin=""></script></head><body><div id="__next"><div class="layout_container__FUycR"><header class="layout_header__SFlEE"></header><main><article><h1 class="utils_headingXl__zlq1q">理解k8s网络</h1><div class="utils_lightText__B_gv3"><time dateTime="2023-12-18">December 18, 2023</time></div><div><h2>单机上的两个Pod如何通信</h2>
+<p><img src="/images/understand_the_kubernetes_network/network_in_node.png" alt="network_in_node.png"></p>
+<ul>
+<li>Pod通过<strong>network namespace</strong>与主机网络隔离</li>
+<li>Pod中存在一个虚拟以太网设备对(veth pair)，一端(eth0)在Pod的network namespace中，另一端(ethxx)在主机网络中</li>
+<li>Host的多个veth通过bridge网络相连，所以单机Pod间的通信本质上是多个虚拟设备构成的桥接网络</li>
+</ul>
+<h2>多机上的两个Pod如何通信</h2>
+<p><img src="/images/understand_the_kubernetes_network/network_cross_node.png" alt="network_cross_node.png"></p>
+<ul>
+<li>多机场景下，需要将不同主机网络相连</li>
+</ul>
+<h2>Service 的原理</h2>
+<p><img src="/images/understand_the_kubernetes_network/services.png" alt="services.png"></p>
+<ul>
+<li>services本身与网络拓扑没有关系</li>
+<li>services包括一个虚拟的ip地址</li>
+<li>kube-proxy(one per node)根据services的定义修改iptables规则，将发往services ip的包，路由到对应的pod地址</li>
+</ul>
+<h2>Ingress 的原理</h2>
+<p><img src="/images/understand_the_kubernetes_network/ingress.png" alt="img.png"></p>
+<ul>
+<li>与<code>LoadBalancer</code>不同，Ingress只需要一个独立Ip地址，可以路由到多个Service</li>
+<li>Ingress需要一个配套的<code>IngressController</code>，来完成实际的流量分配</li>
+<li>IngressController需要将自身端口暴露到集群外部以供访问，可能是通过<code>NodePort</code></li>
+</ul>
+<h2>什么是Linux namespace</h2>
+<p>Linux namespace是内核提供的功能，是Linux容器化技术的基石，可以通过<a href="https://man7.org/linux/man-pages/man1/unshare.1.html">unshare</a>命令调用。
+<img src="https://i0.wp.com/theboreddev.com/wp-content/uploads/2023/02/linux-container.png?w=451&amp;ssl=1" alt="container"></p>
+<h2>什么是虚拟以太网设备(veth)</h2>
+<p>linux虚拟以太网设备是<a href="https://oldwiki.archive.openwrt.org/doc/networking/network.interfaces">network interface</a>的一种，可以在没有物理设备的情况下，对网络进行逻辑分区。</p>
+<blockquote>
+<ul>
+<li><a href="https://www.manning.com/books/kubernetes-in-action">kubernetes-in-action</a></li>
+</ul>
+</blockquote>
+</div></article></main><div class="layout_backToHome__D9QFr"><a href="/">← Back</a></div></div></div><script id="__NEXT_DATA__" type="application/json" crossorigin="">{"props":{"pageProps":{"postData":{"id":"understand_the_kubernetes_network","contentHtml":"\u003ch2\u003e单机上的两个Pod如何通信\u003c/h2\u003e\n\u003cp\u003e\u003cimg src=\"/images/understand_the_kubernetes_network/network_in_node.png\" alt=\"network_in_node.png\"\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003ePod通过\u003cstrong\u003enetwork namespace\u003c/strong\u003e与主机网络隔离\u003c/li\u003e\n\u003cli\u003ePod中存在一个虚拟以太网设备对(veth pair)，一端(eth0)在Pod的network namespace中，另一端(ethxx)在主机网络中\u003c/li\u003e\n\u003cli\u003eHost的多个veth通过bridge网络相连，所以单机Pod间的通信本质上是多个虚拟设备构成的桥接网络\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003e多机上的两个Pod如何通信\u003c/h2\u003e\n\u003cp\u003e\u003cimg src=\"/images/understand_the_kubernetes_network/network_cross_node.png\" alt=\"network_cross_node.png\"\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e多机场景下，需要将不同主机网络相连\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003eService 的原理\u003c/h2\u003e\n\u003cp\u003e\u003cimg src=\"/images/understand_the_kubernetes_network/services.png\" alt=\"services.png\"\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eservices本身与网络拓扑没有关系\u003c/li\u003e\n\u003cli\u003eservices包括一个虚拟的ip地址\u003c/li\u003e\n\u003cli\u003ekube-proxy(one per node)根据services的定义修改iptables规则，将发往services ip的包，路由到对应的pod地址\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003eIngress 的原理\u003c/h2\u003e\n\u003cp\u003e\u003cimg src=\"/images/understand_the_kubernetes_network/ingress.png\" alt=\"img.png\"\u003e\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e与\u003ccode\u003eLoadBalancer\u003c/code\u003e不同，Ingress只需要一个独立Ip地址，可以路由到多个Service\u003c/li\u003e\n\u003cli\u003eIngress需要一个配套的\u003ccode\u003eIngressController\u003c/code\u003e，来完成实际的流量分配\u003c/li\u003e\n\u003cli\u003eIngressController需要将自身端口暴露到集群外部以供访问，可能是通过\u003ccode\u003eNodePort\u003c/code\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003e什么是Linux namespace\u003c/h2\u003e\n\u003cp\u003eLinux namespace是内核提供的功能，是Linux容器化技术的基石，可以通过\u003ca href=\"https://man7.org/linux/man-pages/man1/unshare.1.html\"\u003eunshare\u003c/a\u003e命令调用。\n\u003cimg src=\"https://i0.wp.com/theboreddev.com/wp-content/uploads/2023/02/linux-container.png?w=451\u0026amp;ssl=1\" alt=\"container\"\u003e\u003c/p\u003e\n\u003ch2\u003e什么是虚拟以太网设备(veth)\u003c/h2\u003e\n\u003cp\u003elinux虚拟以太网设备是\u003ca href=\"https://oldwiki.archive.openwrt.org/doc/networking/network.interfaces\"\u003enetwork interface\u003c/a\u003e的一种，可以在没有物理设备的情况下，对网络进行逻辑分区。\u003c/p\u003e\n\u003cblockquote\u003e\n\u003cul\u003e\n\u003cli\u003e\u003ca href=\"https://www.manning.com/books/kubernetes-in-action\"\u003ekubernetes-in-action\u003c/a\u003e\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/blockquote\u003e\n","title":"理解k8s网络","date":"2023-12-18","description":"理解k8s网络的工作原理"}},"__N_SSG":true},"page":"/posts/[id]","query":{"id":"understand_the_kubernetes_network"},"buildId":"tBDcWIf9tU2_6gXjzKBx-","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>

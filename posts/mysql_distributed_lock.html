@@ -1,0 +1,72 @@
+<!DOCTYPE html><html><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width"/><link rel="icon" href="/favicon.ico"/><meta name="description" content="The blog of a programmer who enjoys learning and building things."/><meta property="og:image" content="https://og-image.vercel.app/WuYi&#x27;s%20Blog.png?theme=light&amp;md=0&amp;fontSize=75px&amp;images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg"/><meta name="og:title" content="WuYi&#x27;s Blog"/><meta name="twitter:card" content="summary_large_image"/><title>Mysql分布式锁</title><meta name="next-head-count" content="8"/><link data-next-font="" rel="preconnect" href="/" crossorigin="anonymous"/><link rel="preload" href="/_next/static/css/f5bbdd045156ccce.css" as="style" crossorigin=""/><link rel="stylesheet" href="/_next/static/css/f5bbdd045156ccce.css" crossorigin="" data-n-g=""/><link rel="preload" href="/_next/static/css/327bdfcd3e98582f.css" as="style" crossorigin=""/><link rel="stylesheet" href="/_next/static/css/327bdfcd3e98582f.css" crossorigin="" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" crossorigin="" nomodule="" src="/_next/static/chunks/polyfills-c67a75d1b6f99dc8.js"></script><script src="/_next/static/chunks/webpack-445a5fe7cadeec28.js" defer="" crossorigin=""></script><script src="/_next/static/chunks/framework-bbecb7d54330d002.js" defer="" crossorigin=""></script><script src="/_next/static/chunks/main-6e8ee6ae7cc0a14c.js" defer="" crossorigin=""></script><script src="/_next/static/chunks/pages/_app-25345a12794bca3a.js" defer="" crossorigin=""></script><script src="/_next/static/chunks/996-5abd08ae305d436b.js" defer="" crossorigin=""></script><script src="/_next/static/chunks/284-919fb0c78b7b87bc.js" defer="" crossorigin=""></script><script src="/_next/static/chunks/pages/posts/%5Bid%5D-30a9d36a22da8e83.js" defer="" crossorigin=""></script><script src="/_next/static/tBDcWIf9tU2_6gXjzKBx-/_buildManifest.js" defer="" crossorigin=""></script><script src="/_next/static/tBDcWIf9tU2_6gXjzKBx-/_ssgManifest.js" defer="" crossorigin=""></script></head><body><div id="__next"><div class="layout_container__FUycR"><header class="layout_header__SFlEE"></header><main><article><h1 class="utils_headingXl__zlq1q">Mysql分布式锁</h1><div class="utils_lightText__B_gv3"><time dateTime="2024-01-11">January 11, 2024</time></div><div><p>最近在一份代码中看到基于Mysql的分布式锁实现，首先有一张锁表(脱敏)：</p>
+<pre><code class="hljs language-mysql">CREATE TABLE `lock_tab`
+(
+    `id`         bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+    `lock_type`  int                 NOT NULL,
+    `lock_owner` varchar(127)        NOT NULL,
+    `lock_ts`    datetime            NOT NULL,
+    `reserved`   text default NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `uniq_idx_lock_type` (`lock_type`)
+)
+</code></pre>
+<p>加锁流程的伪代码</p>
+<pre><code class="hljs language-go"><span class="hljs-comment">// distributed lock with Mysql</span>
+hostIp := <span class="hljs-number">192.168</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span>
+lockType := <span class="hljs-number">1</span>
+lock := db.model(<span class="hljs-string">&quot;lock_tab&quot;</span>).where(<span class="hljs-string">&quot;lock_type = ?&quot;</span>, some_lock_type)
+<span class="hljs-keyword">if</span> !lock {
+	db.model(<span class="hljs-string">&quot;lock_tab&quot;</span>).insert(&amp;Lock{LockType: lockType, LockOwner: hostIP, LockTs: time.Now()})
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+}
+
+<span class="hljs-comment">// the lock belongs to someone else and not expired yet</span>
+<span class="hljs-keyword">if</span> lock.LockOwner != hostIp &amp;&amp; notExpire(lock.Ts) {
+	<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+}
+
+<span class="hljs-comment">// lock acquired, refresh the lease</span>
+db.model(<span class="hljs-string">&quot;lock_tab&quot;</span>).update(&amp;Lock{LockType: lockType, LockOwner: hostIP, LockTs: time.Now()})
+<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+</code></pre>
+<p>这份分布式锁的实现有几个特点：</p>
+<ol>
+<li>以进程所在机器(容器)的ip作为标识，因此每台机器最多一个实例获取到锁</li>
+<li>带过期时间</li>
+<li>无锁，没有施加行锁</li>
+</ol>
+<p>这份代码的本意是限制crontab任务在多实例上的运行，因此才有lockType对应不同的cronTab任务。那么这份代码有没有问题，能不能正常工作呢？</p>
+<p>我的答案是<strong>有很大问题，但大概率能正常工作</strong>。问题在于当锁过期时，有很高的风险会出现多个实例获取到锁并错误的对锁做续期，又由于实例都是以crontab周期获取锁，当实例数超过一定值问题出现的频率会非常高。但这份代码的运行场景恰好只有2个实例，因此大概率是能正常工作。同时，这份代码还存在一些时间戳同步、ip重用的细节问题。</p>
+<p>这份代码也引起我对一个常见问题的思考：到底如何基于Mysql实现一份可用、高效的分布式锁呢？</p>
+<p>在Redis中，实现一个分布式锁是简单而直观的：</p>
+<pre><code class="hljs"><span class="hljs-comment">// 加锁</span>
+SET my_lock my_random_value NX PX <span class="hljs-number">30000</span>
+
+<span class="hljs-comment">// 解锁</span>
+EVAL <span class="hljs-string">&quot;if redis.call(&#x27;</span>get&#x27;, KEYS[<span class="hljs-number">1</span>]) == ARGV[<span class="hljs-number">1</span>] <span class="hljs-keyword">then</span> <span class="hljs-keyword">return</span> redis.call(<span class="hljs-string">&#x27;del&#x27;</span>, KEYS[<span class="hljs-number">1</span>]) <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> <span class="hljs-number">0</span> <span class="hljs-keyword">end</span><span class="hljs-string">&quot; 1 my_lock my_random_value
+</span></code></pre>
+<p>以Redis为标杆，我对Mysql分布式锁的实现思路有：</p>
+<ol>
+<li>server side，规避本地计算可能出现的时间戳问题</li>
+<li>原子性</li>
+<li>无锁</li>
+</ol>
+<p>在一番搜索和对比后chatgpt4给出的解是最符合要求的，同时兼容Mysql5.0/8.0。实际运用中，程序可以生成一个随机值作为<code>lock_name</code>，判断加锁语句返回的affectedRows来判定是否加锁成功。</p>
+<pre><code class="hljs language-mysql">CREATE TABLE `distributed_lock` (
+  `lock_name` VARCHAR(255) NOT NULL,
+  `lock_timestamp` BIGINT UNSIGNED NOT NULL,
+  `lock_ttl` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`lock_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# 加锁
+INSERT INTO `distributed_lock` (`lock_name`, `lock_timestamp`, `lock_ttl`)
+VALUES ('my_lock', UNIX_TIMESTAMP(), 10)
+ON DUPLICATE KEY UPDATE
+                     `lock_timestamp` = IF(UNIX_TIMESTAMP() - `lock_timestamp` &gt; `lock_ttl`, VALUES(`lock_timestamp`), `lock_timestamp`),
+                     `lock_ttl` = IF(UNIX_TIMESTAMP() - `lock_timestamp` &gt; `lock_ttl`, VALUES(`lock_ttl`), `lock_ttl`);
+
+# 解锁
+DELETE FROM `distributed_lock` WHERE `lock_name` = 'my_lock';
+</code></pre>
+</div></article></main><div class="layout_backToHome__D9QFr"><a href="/">← Back</a></div></div></div><script id="__NEXT_DATA__" type="application/json" crossorigin="">{"props":{"pageProps":{"postData":{"id":"mysql_distributed_lock","contentHtml":"\u003cp\u003e最近在一份代码中看到基于Mysql的分布式锁实现，首先有一张锁表(脱敏)：\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-mysql\"\u003eCREATE TABLE `lock_tab`\n(\n    `id`         bigint(20) unsigned NOT NULL AUTO_INCREMENT,\n    `lock_type`  int                 NOT NULL,\n    `lock_owner` varchar(127)        NOT NULL,\n    `lock_ts`    datetime            NOT NULL,\n    `reserved`   text default NULL,\n    PRIMARY KEY (`id`),\n    UNIQUE KEY `uniq_idx_lock_type` (`lock_type`)\n)\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e加锁流程的伪代码\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-go\"\u003e\u003cspan class=\"hljs-comment\"\u003e// distributed lock with Mysql\u003c/span\u003e\nhostIp := \u003cspan class=\"hljs-number\"\u003e192.168\u003c/span\u003e\u003cspan class=\"hljs-number\"\u003e.0\u003c/span\u003e\u003cspan class=\"hljs-number\"\u003e.1\u003c/span\u003e\nlockType := \u003cspan class=\"hljs-number\"\u003e1\u003c/span\u003e\nlock := db.model(\u003cspan class=\"hljs-string\"\u003e\u0026quot;lock_tab\u0026quot;\u003c/span\u003e).where(\u003cspan class=\"hljs-string\"\u003e\u0026quot;lock_type = ?\u0026quot;\u003c/span\u003e, some_lock_type)\n\u003cspan class=\"hljs-keyword\"\u003eif\u003c/span\u003e !lock {\n\tdb.model(\u003cspan class=\"hljs-string\"\u003e\u0026quot;lock_tab\u0026quot;\u003c/span\u003e).insert(\u0026amp;Lock{LockType: lockType, LockOwner: hostIP, LockTs: time.Now()})\n\t\u003cspan class=\"hljs-keyword\"\u003ereturn\u003c/span\u003e \u003cspan class=\"hljs-literal\"\u003etrue\u003c/span\u003e\n}\n\n\u003cspan class=\"hljs-comment\"\u003e// the lock belongs to someone else and not expired yet\u003c/span\u003e\n\u003cspan class=\"hljs-keyword\"\u003eif\u003c/span\u003e lock.LockOwner != hostIp \u0026amp;\u0026amp; notExpire(lock.Ts) {\n\t\u003cspan class=\"hljs-keyword\"\u003ereturn\u003c/span\u003e \u003cspan class=\"hljs-literal\"\u003efalse\u003c/span\u003e\n}\n\n\u003cspan class=\"hljs-comment\"\u003e// lock acquired, refresh the lease\u003c/span\u003e\ndb.model(\u003cspan class=\"hljs-string\"\u003e\u0026quot;lock_tab\u0026quot;\u003c/span\u003e).update(\u0026amp;Lock{LockType: lockType, LockOwner: hostIP, LockTs: time.Now()})\n\u003cspan class=\"hljs-keyword\"\u003ereturn\u003c/span\u003e \u003cspan class=\"hljs-literal\"\u003etrue\u003c/span\u003e\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e这份分布式锁的实现有几个特点：\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e以进程所在机器(容器)的ip作为标识，因此每台机器最多一个实例获取到锁\u003c/li\u003e\n\u003cli\u003e带过期时间\u003c/li\u003e\n\u003cli\u003e无锁，没有施加行锁\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003e这份代码的本意是限制crontab任务在多实例上的运行，因此才有lockType对应不同的cronTab任务。那么这份代码有没有问题，能不能正常工作呢？\u003c/p\u003e\n\u003cp\u003e我的答案是\u003cstrong\u003e有很大问题，但大概率能正常工作\u003c/strong\u003e。问题在于当锁过期时，有很高的风险会出现多个实例获取到锁并错误的对锁做续期，又由于实例都是以crontab周期获取锁，当实例数超过一定值问题出现的频率会非常高。但这份代码的运行场景恰好只有2个实例，因此大概率是能正常工作。同时，这份代码还存在一些时间戳同步、ip重用的细节问题。\u003c/p\u003e\n\u003cp\u003e这份代码也引起我对一个常见问题的思考：到底如何基于Mysql实现一份可用、高效的分布式锁呢？\u003c/p\u003e\n\u003cp\u003e在Redis中，实现一个分布式锁是简单而直观的：\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs\"\u003e\u003cspan class=\"hljs-comment\"\u003e// 加锁\u003c/span\u003e\nSET my_lock my_random_value NX PX \u003cspan class=\"hljs-number\"\u003e30000\u003c/span\u003e\n\n\u003cspan class=\"hljs-comment\"\u003e// 解锁\u003c/span\u003e\nEVAL \u003cspan class=\"hljs-string\"\u003e\u0026quot;if redis.call(\u0026#x27;\u003c/span\u003eget\u0026#x27;, KEYS[\u003cspan class=\"hljs-number\"\u003e1\u003c/span\u003e]) == ARGV[\u003cspan class=\"hljs-number\"\u003e1\u003c/span\u003e] \u003cspan class=\"hljs-keyword\"\u003ethen\u003c/span\u003e \u003cspan class=\"hljs-keyword\"\u003ereturn\u003c/span\u003e redis.call(\u003cspan class=\"hljs-string\"\u003e\u0026#x27;del\u0026#x27;\u003c/span\u003e, KEYS[\u003cspan class=\"hljs-number\"\u003e1\u003c/span\u003e]) \u003cspan class=\"hljs-keyword\"\u003eelse\u003c/span\u003e \u003cspan class=\"hljs-keyword\"\u003ereturn\u003c/span\u003e \u003cspan class=\"hljs-number\"\u003e0\u003c/span\u003e \u003cspan class=\"hljs-keyword\"\u003eend\u003c/span\u003e\u003cspan class=\"hljs-string\"\u003e\u0026quot; 1 my_lock my_random_value\n\u003c/span\u003e\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e以Redis为标杆，我对Mysql分布式锁的实现思路有：\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eserver side，规避本地计算可能出现的时间戳问题\u003c/li\u003e\n\u003cli\u003e原子性\u003c/li\u003e\n\u003cli\u003e无锁\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003e在一番搜索和对比后chatgpt4给出的解是最符合要求的，同时兼容Mysql5.0/8.0。实际运用中，程序可以生成一个随机值作为\u003ccode\u003elock_name\u003c/code\u003e，判断加锁语句返回的affectedRows来判定是否加锁成功。\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"hljs language-mysql\"\u003eCREATE TABLE `distributed_lock` (\n  `lock_name` VARCHAR(255) NOT NULL,\n  `lock_timestamp` BIGINT UNSIGNED NOT NULL,\n  `lock_ttl` INT UNSIGNED NOT NULL,\n  PRIMARY KEY (`lock_name`)\n) ENGINE=InnoDB DEFAULT CHARSET=utf8;\n\n# 加锁\nINSERT INTO `distributed_lock` (`lock_name`, `lock_timestamp`, `lock_ttl`)\nVALUES ('my_lock', UNIX_TIMESTAMP(), 10)\nON DUPLICATE KEY UPDATE\n                     `lock_timestamp` = IF(UNIX_TIMESTAMP() - `lock_timestamp` \u0026gt; `lock_ttl`, VALUES(`lock_timestamp`), `lock_timestamp`),\n                     `lock_ttl` = IF(UNIX_TIMESTAMP() - `lock_timestamp` \u0026gt; `lock_ttl`, VALUES(`lock_ttl`), `lock_ttl`);\n\n# 解锁\nDELETE FROM `distributed_lock` WHERE `lock_name` = 'my_lock';\n\u003c/code\u003e\u003c/pre\u003e\n","title":"Mysql分布式锁","date":"2024-01-11","description":"尽管分布式锁有很多成熟的实现方案，Mysql却常常是小应用场景下的第一存储选择"}},"__N_SSG":true},"page":"/posts/[id]","query":{"id":"mysql_distributed_lock"},"buildId":"tBDcWIf9tU2_6gXjzKBx-","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
