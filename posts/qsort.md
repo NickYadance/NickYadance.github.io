@@ -13,7 +13,7 @@ QuickSort(A, l, r):
 ```
 [Lomuto Partition](https://en.wikipedia.org/wiki/Quicksort)切分算法描述如下。
 
-> Lomuto Partition并不是最优的实现。
+> 注意: Lomuto Partition并不是最优的实现
 
 将数组划分为四个部分$A[l, i, j, r)$，每个部分和目标值$x$的大小关系不同，其中：
 $$
