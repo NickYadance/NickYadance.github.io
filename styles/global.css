@@ -24,11 +24,15 @@ p>a {
   color: #800;
   text-decoration: none;
   margin-right: 3px;
+  margin-left: 3px;
   border-bottom: 1px dashed #800;
 }
 
 p>a:hover {
+  color: #800;
   text-decoration: none;
+  margin-right: 3px;
+  margin-left: 3px;
   border-bottom: 1px solid #800;
 }
 
