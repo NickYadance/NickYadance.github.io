@@ -1,5 +1,5 @@
 ---
-title: '理解动态规划：从切钢管开始'
+title: '动态规划：切钢管'
 date: '2023-11-13'
 description: ''
 ---
@@ -11,9 +11,9 @@ description: ''
 
 ## 切钢管问题 
 
-[GO Playground](https://goplay.tools/snippet/_1cMWn-CJ1W)
+<small>[GO Playground](https://goplay.tools/snippet/_1cMWn-CJ1W)</small>
 
-钢管问题: 已知长度为$i$的钢管的的售价为$p(i)$，现将长度为$n$的钢管切任意次，求所有片段的售价总和最大值及切割方案。
+> 已知长度为$i$的钢管的的售价为$p(i)$，现将长度为$n$的钢管切任意次，求所有片段的售价总和最大值及切割方案。
 
 直观的看，对于长度为$n$的钢管可以尝试在长度$i, i \in 1,2,...,n$的位置“砍一刀”得到一根售价为$p(i)$的钢管和一个子问题$P(n-i)$，得到一个递归式。
 $$
@@ -68,4 +68,5 @@ func CuttingProblem(price []int, length int) int {
 }
 ```
 
-> [算法导论](https://jingyuexing.github.io/Ebook/Algorithm/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA.pdf)
+## Reference
+- [算法导论](https://jingyuexing.github.io/Ebook/Algorithm/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA.pdf)
