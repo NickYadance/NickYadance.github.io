@@ -64,9 +64,9 @@ i    0 1 2        3 4        5
 - lower_bound: Searches for the first element in the partitioned range [first, last) which is **not ordered before** value.
 - upper_bound: Searches for the first element in the partitioned range [first, last) which is **ordered after** value.
 
-循环不变量需要修改保持过程为
-1. 如果$n <= a[mid]$，n的上界在mid右边且不包括mid，区间$[mid + 1, r)$满足循环不变量
-2. 如果$n > a[mid]$，n的上界在mid左边且包括mid，区间$[l, mid)$满足循环不变量
+循环不变量只需要修改保持过程，将$n>a[mid]$修改为$n>=a[mid]$
+1. 如果$n >= a[mid]$，n的上界在mid右边且不包括mid，区间$[mid + 1, r)$满足循环不变量
+2. 如果$n < a[mid]$，n的上界在mid左边且包括mid，区间$[l, mid)$满足循环不变量
 
 ```go
 func BinarySearchUpperBound(arr []int, n int) int {
@@ -74,7 +74,7 @@ func BinarySearchUpperBound(arr []int, n int) int {
 	high := len(arr)
 	for low < high {
 		mid := low + (high-low)>>1
-		if n <= arr[mid] {
+		if n >= arr[mid] {
 			low = mid + 1
 		} else {
 			high = mid

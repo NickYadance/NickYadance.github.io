@@ -11,7 +11,7 @@ QuickSort(A, l, r):
          QuickSort(A, l, p - 1)
          QuickSort(A, p + 1, r)
 ```
-[Lomuto Partition](https://en.wikipedia.org/wiki/Quicksort)循环不变量描述如下。
+[Lomuto Partition](https://en.wikipedia.org/wiki/Quicksort)切分算法描述如下。
 
 > Lomuto Partition并不是最优的实现。
 
@@ -65,4 +65,24 @@ func QSort(A []int, l, r int) {
 	}
 }
 ```
+
+分治点$p$是一个有用的元素，由于它“中间点”的性质，也可以用来找第k大(小)的元素。
+```go
+func KthElement(A []int, l, r, k int) int {
+	if l < r {
+		pivot := Partition(A, l, r)
+		ki := k - 1
+		if ki == pivot {
+			return A[pivot]
+		} else if ki < pivot {
+			return KthElement(A, l, pivot, k)
+		} else {
+			return KthElement(A, pivot+1, r, k)
+		}
+	}
+
+	return -1
+}
+```
+
 > [算法导论](https://jingyuexing.github.io/Ebook/Algorithm/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA.pdf)
