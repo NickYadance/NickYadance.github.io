@@ -1,9 +1,9 @@
 ---
-title: '彻底理解快速排序的分治问题'
+title: '理解快速排序的分治问题'
 date: '2023-11-11'
 description: ''
 ---
-快速排序是一个分治算法，基本思路是在每次分治中，对数组$A[l, r)$找到一个分治点$p$，**满足$p$左边的元素都小于等于$A[p]$，$p$右边的元素都大于$A[p]$**。
+快速排序是一个分治算法，基本思路是在每次分治中对数组$A[l, r)$找到一个分治点$p$，**使得$p$左边的元素都小于等于$A[p]$，$p$右边的元素都大于$A[p]$**。注意这里与二分的不同之处在于分治算法除了要找到分治点外，还需要对数组重组。
 ```
 QuickSort(A, l, r):
      if l < r :
@@ -11,12 +11,11 @@ QuickSort(A, l, r):
          QuickSort(A, l, p - 1)
          QuickSort(A, p + 1, r)
 ```
-至于为什么这样分治能对数组排序我们不作分析，只介绍Partition的实现。为了彻底理解Partition的过程并能写出BugFree的代码，
-我们以[Lomuto](https://en.wikipedia.org/wiki/Quicksort)的实现为例，使用循环不变量描述算法过程。
+[Lomuto Partition](https://en.wikipedia.org/wiki/Quicksort)切分算法描述如下。
 
-> 注意：此实现下的快速排序性能并不是最优的。
+> 注意: Lomuto Partition并不是最优的实现
 
-首先，我们将数组划分为四个部分$A[l, i, j, r)$，每个部分和目标值$x$的大小关系不同，其中：
+将数组划分为四个部分$A[l, i, j, r)$，每个部分和目标值$x$的大小关系不同，其中：
 $$
 \begin{cases}
 &k \in [l, i), A[k] <= x \\\\ &k \in [i, j), A[k] > x \\\\ &k \in [j, r), A[k] \ ? \ x 
@@ -66,4 +65,24 @@ func QSort(A []int, l, r int) {
 	}
 }
 ```
+
+分治点$p$是一个有用的元素，由于它“中间点”的性质，也可以用来找第k大(小)的元素。
+```go
+func KthElement(A []int, l, r, k int) int {
+	if l < r {
+		pivot := Partition(A, l, r)
+		ki := k - 1
+		if ki == pivot {
+			return A[pivot]
+		} else if ki < pivot {
+			return KthElement(A, l, pivot, k)
+		} else {
+			return KthElement(A, pivot+1, r, k)
+		}
+	}
+
+	return -1
+}
+```
+
 > [算法导论](https://jingyuexing.github.io/Ebook/Algorithm/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA.pdf)
