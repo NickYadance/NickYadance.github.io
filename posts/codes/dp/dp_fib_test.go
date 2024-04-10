@@ -171,7 +171,7 @@ func minCostClimbingStairs(cost []int) int {
 	/*
 		m[i] = Min(m[i-1] + cost[i-1], m[i-2] + cost[i-2])
 		m[0] = 0
-		m[1] = cost[0]
+		m[1] = 0
 		ans = m[len(cost)]
 	*/
 	m0 := 0
