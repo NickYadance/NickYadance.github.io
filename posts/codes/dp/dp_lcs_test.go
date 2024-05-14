@@ -2,6 +2,7 @@ package dp
 
 import (
 	"gotest.tools/assert"
+	"sort"
 	"testing"
 )
 
@@ -126,3 +127,183 @@ func findNumberOfLIS(nums []int) int {
 func Test_findNumberOfLIS(t *testing.T) {
 	assert.Assert(t, findNumberOfLIS([]int{1, 2, 4, 3, 5, 4, 7, 2}) == 3)
 }
+
+/*
+646. 最长数对链
+中等
+相关标签
+相关企业
+给你一个由 n 个数对组成的数对数组 pairs ，其中 pairs[i] = [lefti, righti] 且 lefti < righti 。
+
+现在，我们定义一种 跟随 关系，当且仅当 b < c 时，数对 p2 = [c, d] 才可以跟在 p1 = [a, b] 后面。我们用这种形式来构造 数对链 。
+
+找出并返回能够形成的 最长数对链的长度 。
+
+你不需要用到所有的数对，你可以以任何顺序选择其中的一些数对来构造。
+
+示例 1：
+
+输入：pairs = [[1,2], [2,3], [3,4]]
+输出：2
+解释：最长的数对链是 [1,2] -> [3,4] 。
+示例 2：
+
+输入：pairs = [[1,2],[7,8],[4,5]]
+输出：3
+解释：最长的数对链是 [1,2] -> [4,5] -> [7,8] 。
+
+提示：
+
+n == pairs.length
+1 <= n <= 1000
+-1000 <= lefti < righti <= 1000
+*/
+type Pair [][]int
+
+func (p Pair) Len() int           { return len(p) }
+func (p Pair) Less(i, j int) bool { return p[i][0] < p[j][0] }
+func (p Pair) Swap(i, j int)      { tmp := p[i]; p[i] = p[j]; p[j] = tmp }
+
+func findLongestChain(pairs [][]int) int {
+	/*
+		dp[i] = for j in 0 to i: if pairs[i][0] > pairs[j][1] then dp[j] + 1 else 1
+	*/
+	sort.Sort(Pair(pairs))
+	n := len(pairs)
+	dp := make([]int, n)
+	ans := 0
+	for i := 0; i < n; i++ {
+		dp[i] = 1
+		for j := 0; j < i; j++ {
+			if pairs[i][0] > pairs[j][1] {
+				dp[i] = max(dp[i], dp[j]+1)
+			}
+		}
+		ans = max(ans, dp[i])
+	}
+	return ans
+}
+
+/*
+给你一个整数数组 arr 和一个整数 difference，请你找出并返回 arr 中最长等差子序列的长度，该子序列中相邻元素之间的差等于 difference 。
+
+子序列 是指在不改变其余元素顺序的情况下，通过删除一些元素或不删除任何元素而从 arr 派生出来的序列。
+
+示例 1：
+
+输入：arr = [1,2,3,4], difference = 1
+输出：4
+解释：最长的等差子序列是 [1,2,3,4]。
+示例 2：
+
+输入：arr = [1,3,5,7], difference = 1
+输出：1
+解释：最长的等差子序列是任意单个元素。
+示例 3：
+
+输入：arr = [1,5,7,8,5,3,4,2,1], difference = -2
+输出：4
+解释：最长的等差子序列是 [7,5,3,1]。
+
+提示：
+
+1 <= arr.length <= 105
+-104 <= arr[i], difference <= 104
+*/
+func longestSubsequence(arr []int, difference int) int {
+	/*
+		此解法超时，需要利用等差子序列的性质，直接定位到 j = index of (arr[i] - difference)
+	*/
+	n := len(arr)
+	dp := make([]int, n)
+	ans := 0
+	for i := 0; i < n; i++ {
+		dp[i] = 1
+		for j := 0; j < i; j++ {
+			if arr[i]-arr[j] == difference {
+				dp[i] = max(dp[i], dp[j]+1)
+			}
+		}
+		ans = max(ans, dp[i])
+	}
+	return ans
+}
+
+/*
+给你一个整数数组 nums，返回 nums 中最长等差子序列的长度。
+
+回想一下，nums 的子序列是一个列表 nums[i1], nums[i2], ..., nums[ik] ，且 0 <= i1 < i2 < ... < ik <= nums.length - 1。并且如果 seq[i+1] - seq[i]( 0 <= i < seq.length - 1) 的值都相同，那么序列 seq 是等差的。
+
+示例 1：
+
+输入：nums = [3,6,9,12]
+输出：4
+解释：
+整个数组是公差为 3 的等差数列。
+示例 2：
+
+输入：nums = [9,4,7,2,10]
+输出：3
+解释：
+最长的等差子序列是 [4,7,10]。
+示例 3：
+
+输入：nums = [20,1,15,3,10,5,8]
+输出：4
+解释：
+最长的等差子序列是 [20,15,10,5]。
+
+提示：
+
+2 <= nums.length <= 1000
+0 <= nums[i] <= 500
+*/
+func longestArithSeqLength(nums []int) int {
+	/*
+		1 2 3 4 6 8 10
+		dp[i][j] 以i结尾，长度为j的最长等差子序列
+		for j in 0 to i:
+			nums[i]=v, nums[j]=u
+			dp[i][v-u] = dp[j][v-u] + 1
+	*/
+	dp := make([]map[int]int, len(nums))
+	ans := 1
+	for i := 0; i < len(nums); i++ {
+		dp[i] = make(map[int]int)
+		for j := 0; j < i; j++ {
+			delta := nums[i] - nums[j]
+			dp[i][delta] = max(dp[j][delta], 1) + 1
+			ans = max(ans, dp[i][delta])
+		}
+	}
+	return ans
+}
+
+/*
+// :optional
+给你一个二维整数数组 envelopes ，其中 envelopes[i] = [wi, hi] ，表示第 i 个信封的宽度和高度。
+
+当另一个信封的宽度和高度都比这个信封大的时候，这个信封就可以放进另一个信封里，如同俄罗斯套娃一样。
+
+请计算 最多能有多少个 信封能组成一组“俄罗斯套娃”信封（即可以把一个信封放到另一个信封里面）。
+
+注意：不允许旋转信封。
+
+
+示例 1：
+
+输入：envelopes = [[5,4],[6,4],[6,7],[2,3]]
+输出：3
+解释：最多信封的个数为 3, 组合为: [2,3] => [5,4] => [6,7]。
+示例 2：
+
+输入：envelopes = [[1,1],[1,1],[1,1]]
+输出：1
+
+
+提示：
+
+1 <= envelopes.length <= 105
+envelopes[i].length == 2
+1 <= wi, hi <= 105
+*/
