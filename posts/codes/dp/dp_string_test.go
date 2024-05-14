@@ -119,7 +119,7 @@ wordDict 中的所有字符串 互不相同
 */
 func wordBreak(s string, wordDict []string) bool {
 	/*
-		dp[k] = (dp[i] && s[i+1:k-1] in wordDict), i in 0->k
+		dp[k] = (dp[i] && s[i+1:k] in wordDict), i in 0->k
 	*/
 	dict := make(map[string]bool)
 	for _, word := range wordDict {
