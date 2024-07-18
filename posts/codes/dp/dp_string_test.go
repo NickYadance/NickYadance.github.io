@@ -353,6 +353,9 @@ babgbag
 1 <= s.length, t.length <= 1000
 s 和 t 由英文字母组成
 */
+/*
+	dp[i][j] = if s[i] == t[j] then dp[i-1][j-1] + dp[i-1][j] else dp[i-1][j]
+*/
 func numDistinct(s string, t string) int {
 	/*
 				dp(i,j)=s[i] == t[j] ?
