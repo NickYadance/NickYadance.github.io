@@ -16,7 +16,7 @@
     "markdown-it-katex": "^2.0.3",
     "markdown-it-texmath": "^1.0.0",
     "next": "latest",
-    "react": "18.2.0",
+    "react": "19.1.1",
     "react-dom": "18.2.0",
     "remark": "^15.0.1",
     "remark-html": "^16.0.1"
