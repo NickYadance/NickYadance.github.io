@@ -14,8 +14,7 @@
   - [Unix Socket](posts/unix_socket.md)
 
 - Kubernetes
-  - [理解 Kubernetes 网络](posts/understand_the_kubernetes_network.md)
-  - [理解 Kubernetes 资源](posts/understand_the_kubernetes_resource.md)
+  - [Kubernetes](posts/understand_the_kubernetes_network.md)
 
 - 其他
   - [优质博文收藏](posts/goodblogs.md)
