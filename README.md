@@ -6,5 +6,5 @@
 * Github: https://github.com/NickYadance
 * Steam: https://steamcommunity.com/id/1271742420/
 
-![img.png](img.png)
+![img.png](img.png){docsify-ignore}
 ---
