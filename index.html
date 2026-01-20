@@ -70,7 +70,8 @@
           hook.beforeEach(function(html) {
             // 匹配并移除 YAML frontmatter
             const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n/;
-            return html.replace(frontmatterRegex, '');
+            html = html.replace(frontmatterRegex, '');
+            return html;
           });
           
           // 渲染数学公式
