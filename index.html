@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>WuYi's Blog</title>
+  <!-- <link rel="icon" href="favicon.ico"> -->
+  
+  <!-- Docsify CSS -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  
+  <!-- KaTeX for math formulas -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  
+  <!-- Prism for code highlighting -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css">
+  
+  <style>
+    :root {
+      --theme-color: #42b983;
+      --sidebar-width: 300px;
+    }
+    
+    /* Custom styles */
+    .markdown-section {
+      max-width: 900px;
+    }
+    
+    /* Hide frontmatter */
+    .markdown-section hr:first-of-type + pre,
+    .markdown-section pre:first-of-type {
+      display: none;
+    }
+    
+    /* Code block styles */
+    .markdown-section pre {
+      background: #2d2d2d;
+      border-radius: 6px;
+    }
+    
+    /* Math formula styles */
+    .markdown-section .katex {
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+  
+  <script>
+    window.$docsify = {
+      name: 'WuYi\'s Blog',
+      repo: 'https://github.com/NickYadance/NickYadance.github.io',
+      loadSidebar: true,
+      subMaxLevel: 2,
+      auto2top: true,
+      coverpage: false,
+      search: {
+        maxAge: 86400000, // 过期时间，单位毫秒，默认一天
+        paths: 'auto',
+        placeholder: '搜索',
+        noData: '找不到结果!',
+        depth: 6
+      },
+      // 插件配置
+      plugins: [
+        function(hook, vm) {
+          // 移除 frontmatter
+          hook.beforeEach(function(html) {
+            // 匹配并移除 YAML frontmatter
+            const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n/;
+            return html.replace(frontmatterRegex, '');
+          });
+          
+          // 渲染数学公式
+          hook.doneEach(function() {
+            if (window.renderMathInElement) {
+              const markdownSection = document.querySelector('.markdown-section');
+              if (markdownSection) {
+                // 使用 KaTeX auto-render 插件渲染数学公式
+                renderMathInElement(markdownSection, {
+                  delimiters: [
+                    {left: '$$', right: '$$', display: true},
+                    {left: '$', right: '$', display: false}
+                  ],
+                  throwOnError: false,
+                  errorColor: '#cc0000'
+                });
+              }
+            }
+          });
+        }
+      ]
+    };
+  </script>
+  
+  <!-- Docsify core -->
+  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+  
+  <!-- Docsify plugins -->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/external-script.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+  
+  <!-- Prism for code highlighting -->
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  
+  <!-- KaTeX for math formulas -->
+  <script src="//cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+</body>
+</html>
