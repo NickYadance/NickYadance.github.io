@@ -1,20 +1,16 @@
 - [首页](/)
-
-- 算法与数据结构
-  - [二分搜索](posts/binarysearch.md)
-  - [快速排序](posts/qsort.md)
-  - [归并排序](posts/mergesort.md)
-  - [计数排序](posts/countingsort.md)
-  - [动态规划 - 切割问题](posts/dp_cutting_problem.md)
-
-- 系统与数据库
-  - [BoltDB 源码解析](posts/boltdb.md)
-  - [MySQL 分布式锁](posts/mysql_distributed_lock.md)
-  - [MySQL 隔离级别](posts/mysql_isolation.md)
-  - [Unix Socket](posts/unix_socket.md)
-
-- Kubernetes
-  - [Kubernetes](posts/understand_the_kubernetes_network.md)
-
+- 2025
+  - [GTA5 需要战眼服务，请重启游戏问题解决.md](posts/2025/GTA5%20%E9%9C%80%E8%A6%81%E6%88%98%E7%9C%BC%E6%9C%8D%E5%8A%A1%EF%BC%8C%E8%AF%B7%E9%87%8D%E5%90%AF%E6%B8%B8%E6%88%8F%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3.md)
+- 归档
+  - [二分搜索](posts/archive/binarysearch.md)
+  - [快速排序](posts/archive/qsort.md)
+  - [归并排序](posts/archive/mergesort.md)
+  - [计数排序](posts/archive/countingsort.md)
+  - [动态规划](posts/archive/dp_cutting_problem.md)
+  - [BoltDB 源码解析](posts/archive/boltdb.md)
+  - [MySQL 分布式锁](posts/archive/mysql_distributed_lock.md)
+  - [MySQL 隔离级别](posts/archive/mysql_isolation.md)
+  - [Unix Socket](posts/archive/unix_socket.md)
+  - [Kubernetes](posts/archive/understand_the_kubernetes_network.md)
 - 其他
-  - [优质博文收藏](posts/goodblogs.md)
+  - [优质博文收藏](posts/archive/goodblogs.md)
