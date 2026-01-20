@@ -1,9 +1,6 @@
----
-title: '理解快速排序的分治问题'
-date: '2023-11-11'
-description: ''
----
-快速排序是一个分治算法，基本思路是在每次分治中对数组$A[l, r)$找到一个分治点$p$，**使得$p$左边的元素都小于等于$A[p]$，$p$右边的元素都大于$A[p]$**。注意这里与二分的不同之处在于分治算法除了要找到分治点外，还需要对数组重组。
+# 理解快速排序的分治问题
+
+快速排序是一个分治算法，基本思路是在每次分治中对数组$A[l, r)$找到一个分治点$p$，**使得$p$左边的元素都小于等于$A[p]$，$p$右边的元素都大于$A[p]$**。注意这里与二分的不同之处在于分治算法除了要找到分治点外，还需要对数组进行重组。
 ```
 QuickSort(A, l, r):
      if l < r :
@@ -11,9 +8,9 @@ QuickSort(A, l, r):
          QuickSort(A, l, p - 1)
          QuickSort(A, p + 1, r)
 ```
-[Lomuto Partition](https://en.wikipedia.org/wiki/Quicksort)切分算法描述如下。
+[Lomuto Partition](https://en.wikipedia.org/wiki/Quicksort) 切分算法描述如下。
 
-> 注意: Lomuto Partition并不是最优的实现
+> 注意：Lomuto Partition 并不是最优的实现
 
 将数组划分为四个部分$A[l, i, j, r)$，每个部分和目标值$x$的大小关系不同，其中：
 $$
@@ -28,7 +25,7 @@ $$
 终结条件为$j=r$，此时$i$即为我们要寻找的分治点。
 
 当$j=j+1$时，有两种情况：
-1. $A[j]>x$，此时对 $k \in [i, j+1), A[k] > x$ ，不变量成立
+1. $A[j]>x$，此时对 $k \in [i, j+1), A[k] > x$，不变量成立
 2. $A[j]<=x$，此时交换$A[i], A[j]$，$i=i+1$。即把$A[j]$放到小于$x$的区间末尾，并将此区间右移一位，保持循环不变量成立
 ![quicksort_loop.png](/images/quicksort_loop.png)
 
@@ -66,7 +63,7 @@ func QSort(A []int, l, r int) {
 }
 ```
 
-分治点$p$是一个有用的元素，由于它“中间点”的性质，也可以用来找第k大(小)的元素。
+分治点$p$是一个有用的元素，由于它"中间点"的性质，也可以用来找第$k$大（小）的元素。
 ```go
 func KthElement(A []int, l, r, k int) int {
 	if l < r {

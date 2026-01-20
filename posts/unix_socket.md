@@ -1,20 +1,17 @@
----
-title: 'Unix Socket'
-date: '2023-12-21'
-description: 'Unix Socket'
----
+# Unix Socket
 
 ## Socket Domain and Type
-socket domain包括`unix domain socket`和`internet domain socket`。
+
+socket domain 包括 `unix domain socket` 和 `internet domain socket`。
 ![domain](/images/unix_socket/domain.png)
 
-unix domain socket数据通过内核传输，通过套接字文件寻址，不经过网络协议栈(如TCP/IP)。
+unix domain socket 数据通过内核传输，通过套接字文件寻址，不经过网络协议栈（如 TCP/IP）。
 ![unix_domain_socket_io](/images/unix_socket/unix_domain_socket_io.png)
 
-internet domain socket数据通过网络传输，通过网络层寻址(Ipv4/Ipv6)，常见的传输方式基于TCP协议。
+internet domain socket 数据通过网络传输，通过网络层寻址（IPv4/IPv6），常见的传输方式基于 TCP 协议。
 ![internet_domain_socket_io.png](/images/unix_socket/internet_domain_socket_io.png)
 
-socket类型包括`stream`和`datagram`，`stream` socket的主要特性为：
+socket 类型包括 `stream` 和 `datagram`，`stream` socket 的主要特性为：
 * 可靠性：发包方和收包方内容完全一致，不乱序、丢包
 * 双向：发包方和收包方可双向传输数据
 * 无界：包数据无边界

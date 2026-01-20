@@ -1,10 +1,6 @@
----
-title: 'Mysql事务隔离级别(无废话版)'
-date: '2023-12-18'
-description: 'Mysql事务隔离级别(无废话版)'
----
+# MySQL 事务隔离级别（无废话版）
 
-测试数据
+## 测试数据
 ```nsql
 DROP TABLE IF EXISTS IsolationTests;
 CREATE TABLE IsolationTests
