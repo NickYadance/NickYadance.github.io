@@ -1,6 +1,6 @@
 - [首页](/)
 - 2025
-  - [GTA5 需要战眼服务，请重启游戏问题解决.md](posts/2025/GTA5%20%E9%9C%80%E8%A6%81%E6%88%98%E7%9C%BC%E6%9C%8D%E5%8A%A1%EF%BC%8C%E8%AF%B7%E9%87%8D%E5%90%AF%E6%B8%B8%E6%88%8F%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3.md)
+  - [GTA5 需要Battleye才能游玩GTA在线模式.md](posts/2025/GTA5%20%E9%9C%80%E8%A6%81Battleye%E6%89%8D%E8%83%BD%E6%B8%B8%E7%8E%A9GTA%E5%9C%A8%E7%BA%BF%E6%A8%A1%E5%BC%8F.md)
 - 归档
   - [二分搜索](posts/archive/binarysearch.md)
   - [快速排序](posts/archive/qsort.md)
