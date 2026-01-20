@@ -27,18 +27,6 @@
       max-width: 900px;
     }
     
-    /* Hide frontmatter */
-    .markdown-section hr:first-of-type + pre,
-    .markdown-section pre:first-of-type {
-      display: none;
-    }
-    
-    /* Code block styles */
-    .markdown-section pre {
-      background: #2d2d2d;
-      border-radius: 6px;
-    }
-    
     /* Math formula styles */
     .markdown-section .katex {
       font-size: 1.1em;
@@ -70,9 +58,6 @@
       subMaxLevel: 2,
       auto2top: true,
       coverpage: false,
-      alias: {
-        '/.*/_sidebar.md': '/_sidebar.md'
-      },
       search: {
         maxAge: 86400000, // 过期时间，单位毫秒，默认一天
         paths: 'auto',
@@ -83,14 +68,6 @@
       // 插件配置
       plugins: [
         function(hook, vm) {
-          // 移除 frontmatter
-          hook.beforeEach(function(html) {
-            // 匹配并移除 YAML frontmatter
-            const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n/;
-            html = html.replace(frontmatterRegex, '');
-            return html;
-          });
-          
           // 渲染数学公式
           hook.doneEach(function() {
             if (window.renderMathInElement) {
