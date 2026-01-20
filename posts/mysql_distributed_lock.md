@@ -1,5 +1,3 @@
-# MySQL 分布式锁
-
 最近在一份代码中看到基于 MySQL 的分布式锁实现，首先有一张锁表（脱敏）：
 ```mysql
 CREATE TABLE `lock_tab`

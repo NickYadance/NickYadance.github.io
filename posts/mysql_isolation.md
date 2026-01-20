@@ -1,5 +1,3 @@
-# MySQL 事务隔离级别（无废话版）
-
 ## 测试数据
 ```nsql
 DROP TABLE IF EXISTS IsolationTests;
@@ -85,5 +83,6 @@ COMMIT;
 ```
 
 
-> * [innodb-consistent-read](https://dev.mysql.com/doc/refman/5.7/en/innodb-consistent-read.html)  
-> * [sql-server-isolation-levels-by-example](https://gavindraper.com/2012/02/18/sql-server-isolation-levels-by-example/)  
+参考：
+* [innodb-consistent-read](https://dev.mysql.com/doc/refman/5.7/en/innodb-consistent-read.html)  
+* [sql-server-isolation-levels-by-example](https://gavindraper.com/2012/02/18/sql-server-isolation-levels-by-example/)  

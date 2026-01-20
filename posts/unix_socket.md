@@ -1,5 +1,3 @@
-# Unix Socket
-
 ## Socket Domain and Type
 
 socket domain 包括 `unix domain socket` 和 `internet domain socket`。
@@ -36,4 +34,5 @@ Websocket是Http连接的升级版，与stream socket类似，可以进行双向
 ## 与grpc的关系
 grpc也是跨平台的应用层协议，不同的是grpc以二进制数据进行数据传输，同时原生支持stream，grpc也支持直接通过socket套接字进行数据传输。
 
-> * [the-linux-programming-interface-michael-kerrisk-1](https://sciencesoftcode.files.wordpress.com/2018/12/the-linux-programming-interface-michael-kerrisk-1.pdf)
+参考：
+* [the-linux-programming-interface-michael-kerrisk-1](https://sciencesoftcode.files.wordpress.com/2018/12/the-linux-programming-interface-michael-kerrisk-1.pdf)

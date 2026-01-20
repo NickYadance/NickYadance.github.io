@@ -1,5 +1,3 @@
-# 容易被忽略的计数排序稳定性
-
 计数排序中，一个容易被忽略的点是保持原数组元素的相对顺序，即排序算法的稳定性。在下面的实现中，数组中每个元素被计数后，被进行无序的还原。
 ```go
 func CountingSortNaive(nums []int, N int) {
@@ -40,4 +38,5 @@ func CountingSort(nums []int, N int) {
 ```
 稳定的计数排序能帮助处理基数排序的问题。
 
-> [算法导论](https://jingyuexing.github.io/Ebook/Algorithm/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA.pdf)
+参考：
+* [算法导论](https://jingyuexing.github.io/Ebook/Algorithm/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA.pdf)

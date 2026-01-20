@@ -1,7 +1,4 @@
-# BoltDB 数据结构 - 二进制存储
-
-## 概览
-本文结合Boltdb的[数据结构预览](https://jaydenwen123.github.io/boltdb/chapter1/boltdb%E7%9A%84%E6%95%B4%E4%BD%93%E6%95%B0%E6%8D%AE%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84.html)分析Boltdb的二进制存储文件格式。
+结合Boltdb的[数据结构预览](https://jaydenwen123.github.io/boltdb/chapter1/boltdb%E7%9A%84%E6%95%B4%E4%BD%93%E6%95%B0%E6%8D%AE%E7%BB%84%E7%BB%87%E7%BB%93%E6%9E%84.html)分析Boltdb的二进制存储文件格式。
 ![boltdb](/images/boltdb/boltdb.png)
 
 示例程序创建一个数据库，创建 MyBucket 并写入两个键值对，生成 my.db 文件后用[二进制文件预览](https://iamkate.com/code/binary-file-viewer/)打开进行分析。

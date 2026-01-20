@@ -1,5 +1,3 @@
-# 理解 Kubernetes 资源
-
 ## request/limit
 
 request 的值有三个作用：

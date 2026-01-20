@@ -1,5 +1,3 @@
-# 理解快速排序的分治问题
-
 快速排序是一个分治算法，基本思路是在每次分治中对数组$A[l, r)$找到一个分治点$p$，**使得$p$左边的元素都小于等于$A[p]$，$p$右边的元素都大于$A[p]$**。注意这里与二分的不同之处在于分治算法除了要找到分治点外，还需要对数组进行重组。
 ```
 QuickSort(A, l, r):
@@ -82,4 +80,5 @@ func KthElement(A []int, l, r, k int) int {
 }
 ```
 
-> [算法导论](https://jingyuexing.github.io/Ebook/Algorithm/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA.pdf)
+参考：
+* [算法导论](https://jingyuexing.github.io/Ebook/Algorithm/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA.pdf)

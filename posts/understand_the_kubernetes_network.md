@@ -1,5 +1,3 @@
-# 理解 Kubernetes 网络
-
 ## 单机上的两个 Pod 如何通信
 
 ![network_in_node.png](/images/understand_the_kubernetes_network/network_in_node.png)
@@ -39,4 +37,5 @@ Linux namespace 是内核提供的功能，是 Linux 容器化技术的基石，
 
 Linux 虚拟以太网设备是 [network interface](https://oldwiki.archive.openwrt.org/doc/networking/network.interfaces) 的一种，可以在没有物理设备的情况下，对网络进行逻辑分区。
 
-> * [kubernetes-in-action](https://www.manning.com/books/kubernetes-in-action)
+参考：
+* [kubernetes-in-action](https://www.manning.com/books/kubernetes-in-action)

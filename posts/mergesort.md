@@ -1,7 +1,3 @@
-# 分治算法的时间复杂度
-
-> 如果说没有分治，那么计算机在任何方面都不比人类高效
-
 分治算法的思路是将原问题拆分成若干个更小规模的子问题，并将子问题的解进行合并得到原问题的解，归并排序是使用分治算法解决的经典问题之一。
 ```
 DivideAndConquer(N):
@@ -70,4 +66,6 @@ $$
 
 大部分分治算法都有类似结构的递归式，递归式生成的**递归树**如图。树的总高度为$1 + \lg n$，每层的复杂度为$cn$，总代价为$(1+\lg n)cn$，即$O(n \lg n)$。
 ![递推树](/images/recursive_tree.png)
-> [算法导论](https://jingyuexing.github.io/Ebook/Algorithm/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA.pdf)
+
+参考：
+* [算法导论](https://jingyuexing.github.io/Ebook/Algorithm/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA.pdf)

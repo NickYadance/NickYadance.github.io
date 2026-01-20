@@ -1,5 +1,3 @@
-# 动态规划 - 切钢管
-
 动态规划（dynamic programming）是一种分治算法，可以解决一类拥有特定性质的问题：
 
 1. 重复子问题
@@ -64,5 +62,5 @@ func CuttingProblem(price []int, length int) int {
 }
 ```
 
-## 参考资料
-- [算法导论](https://jingyuexing.github.io/Ebook/Algorithm/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA.pdf)
+参考：
+*[算法导论](https://jingyuexing.github.io/Ebook/Algorithm/%E7%AE%97%E6%B3%95%E5%AF%BC%E8%AE%BA.pdf)
