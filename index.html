@@ -44,16 +44,17 @@
       font-size: 1.1em;
     }
     
-    /* 隐藏侧边栏中的图片 */
-    /*.sidebar img {*/
-    /*  display: none !important;*/
-    /*}*/
-    
-    /* 限制 Markdown 中的图片大小 */
+    /* 限制 Markdown 中的图片大小并居中，添加边框和阴影 */
     .markdown-section img {
       max-width: min(600px, 100%);
       height: auto;
       display: block;
+      margin: 1em auto;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 4px;
+      background-color: #fff;
     }
  
   </style>
