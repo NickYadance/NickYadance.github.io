@@ -1,5 +1,5 @@
 - 2025
-  - [GTA5 需要Battleye才能游玩GTA在线模式.md](posts/2025/GTA5%20%E9%9C%80%E8%A6%81Battleye%E6%89%8D%E8%83%BD%E6%B8%B8%E7%8E%A9GTA%E5%9C%A8%E7%BA%BF%E6%A8%A1%E5%BC%8F.md)
+  - [GTA5 需要Battleye才能游玩GTA在线模式](posts/2025/GTA5%20%E9%9C%80%E8%A6%81Battleye%E6%89%8D%E8%83%BD%E6%B8%B8%E7%8E%A9GTA%E5%9C%A8%E7%BA%BF%E6%A8%A1%E5%BC%8F.md)
 - 归档
   - [二分搜索](posts/archive/binarysearch.md)
   - [快速排序](posts/archive/qsort.md)
